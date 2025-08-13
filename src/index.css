@@ -1,0 +1,8 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Ensure the root takes the full height so flex layouts work correctly */
+html, body, #root {
+  height: 100%;
+}
