@@ -4,7 +4,7 @@ import {
   Play,
   Pause,
   ArrowRight,
-  Cube,
+  Boxes,
   X,
   Users,
   Dice6
@@ -355,7 +355,7 @@ export default function App() {
               className="flex items-center gap-2 bg-neutral-800 px-3 py-2 rounded hover:bg-neutral-700"
               onClick={() => setShow3D((s) => !s)}
             >
-              <Cube size={16} /> {show3D ? 'Modo 2D' : 'Modo 3D'}
+              <Boxes size={16} /> {show3D ? 'Modo 2D' : 'Modo 3D'}
             </button>
           </div>
           {/* Información del drill y cues */}
