@@ -63,6 +63,36 @@ const DRILLS = [
       { x: 70, y: 25 },
       { x: 70, y: 75 },
       { x: 20, y: 75 }
+    ],
+    players: [
+      [
+        { x: 15, y: 15, team: 'A', number: 1 },
+        { x: 75, y: 15, team: 'A', number: 2 },
+        { x: 75, y: 75, team: 'A', number: 3 },
+        { x: 15, y: 75, team: 'A', number: 4 },
+        { x: 45, y: 45, team: 'A', number: 5 }
+      ],
+      [
+        { x: 25, y: 35, team: 'A', number: 1 },
+        { x: 65, y: 25, team: 'A', number: 2 },
+        { x: 65, y: 65, team: 'A', number: 3 },
+        { x: 25, y: 65, team: 'A', number: 4 },
+        { x: 55, y: 35, team: 'A', number: 5 }
+      ],
+      [
+        { x: 45, y: 25, team: 'A', number: 1 },
+        { x: 75, y: 45, team: 'A', number: 2 },
+        { x: 55, y: 75, team: 'A', number: 3 },
+        { x: 35, y: 55, team: 'A', number: 4 },
+        { x: 65, y: 45, team: 'A', number: 5 }
+      ],
+      [
+        { x: 35, y: 45, team: 'A', number: 1 },
+        { x: 85, y: 35, team: 'A', number: 2 },
+        { x: 75, y: 85, team: 'A', number: 3 },
+        { x: 15, y: 55, team: 'A', number: 4 },
+        { x: 45, y: 65, team: 'A', number: 5 }
+      ]
     ]
   },
   {
@@ -94,6 +124,28 @@ const DRILLS = [
       { x: 50, y: 50 },
       { x: 75, y: 20 },
       { x: 50, y: 50 }
+    ],
+    players: [
+      [
+        { x: 20, y: 85, team: 'A', number: 'A' },
+        { x: 50, y: 40, team: 'A', number: 'B' },
+        { x: 80, y: 15, team: 'A', number: 'C' }
+      ],
+      [
+        { x: 20, y: 85, team: 'A', number: 'A' },
+        { x: 50, y: 40, team: 'A', number: 'B' },
+        { x: 80, y: 15, team: 'A', number: 'C' }
+      ],
+      [
+        { x: 20, y: 85, team: 'A', number: 'A' },
+        { x: 50, y: 40, team: 'A', number: 'B' },
+        { x: 80, y: 15, team: 'A', number: 'C' }
+      ],
+      [
+        { x: 20, y: 85, team: 'A', number: 'A' },
+        { x: 50, y: 40, team: 'A', number: 'B' },
+        { x: 80, y: 15, team: 'A', number: 'C' }
+      ]
     ]
   },
   {
@@ -124,6 +176,40 @@ const DRILLS = [
       { x: 75, y: 25 },
       { x: 75, y: 75 },
       { x: 25, y: 75 }
+    ],
+    players: [
+      [
+        { x: 15, y: 15, team: 'A', number: '1' },
+        { x: 85, y: 15, team: 'A', number: '2' },
+        { x: 85, y: 85, team: 'A', number: '3' },
+        { x: 15, y: 85, team: 'A', number: '4' },
+        { x: 40, y: 40, team: 'B', number: 'D1' },
+        { x: 60, y: 60, team: 'B', number: 'D2' }
+      ],
+      [
+        { x: 15, y: 15, team: 'A', number: '1' },
+        { x: 85, y: 15, team: 'A', number: '2' },
+        { x: 85, y: 85, team: 'A', number: '3' },
+        { x: 15, y: 85, team: 'A', number: '4' },
+        { x: 50, y: 30, team: 'B', number: 'D1' },
+        { x: 50, y: 70, team: 'B', number: 'D2' }
+      ],
+      [
+        { x: 15, y: 15, team: 'A', number: '1' },
+        { x: 85, y: 15, team: 'A', number: '2' },
+        { x: 85, y: 85, team: 'A', number: '3' },
+        { x: 15, y: 85, team: 'A', number: '4' },
+        { x: 60, y: 40, team: 'B', number: 'D1' },
+        { x: 40, y: 60, team: 'B', number: 'D2' }
+      ],
+      [
+        { x: 15, y: 15, team: 'A', number: '1' },
+        { x: 85, y: 15, team: 'A', number: '2' },
+        { x: 85, y: 85, team: 'A', number: '3' },
+        { x: 15, y: 85, team: 'A', number: '4' },
+        { x: 35, y: 55, team: 'B', number: 'D1' },
+        { x: 65, y: 45, team: 'B', number: 'D2' }
+      ]
     ]
   },
   {
@@ -157,6 +243,74 @@ const DRILLS = [
       { x: 80, y: 50 },
       { x: 65, y: 75 },
       { x: 35, y: 75 }
+    ],
+    players: [
+      [
+        { x: 15, y: 45, team: 'A', number: 1 },
+        { x: 25, y: 15, team: 'A', number: 2 },
+        { x: 65, y: 15, team: 'A', number: 3 },
+        { x: 85, y: 45, team: 'A', number: 4 },
+        { x: 65, y: 85, team: 'B', number: 5 },
+        { x: 35, y: 85, team: 'B', number: 6 },
+        { x: 50, y: 30, team: 'N', number: 7 },
+        { x: 50, y: 50, team: 'N', number: 8 },
+        { x: 50, y: 70, team: 'N', number: 9 }
+      ],
+      [
+        { x: 20, y: 50, team: 'A', number: 1 },
+        { x: 30, y: 20, team: 'A', number: 2 },
+        { x: 70, y: 20, team: 'A', number: 3 },
+        { x: 80, y: 50, team: 'A', number: 4 },
+        { x: 70, y: 80, team: 'B', number: 5 },
+        { x: 30, y: 80, team: 'B', number: 6 },
+        { x: 45, y: 35, team: 'N', number: 7 },
+        { x: 55, y: 45, team: 'N', number: 8 },
+        { x: 45, y: 65, team: 'N', number: 9 }
+      ],
+      [
+        { x: 15, y: 55, team: 'A', number: 1 },
+        { x: 35, y: 15, team: 'A', number: 2 },
+        { x: 75, y: 15, team: 'A', number: 3 },
+        { x: 85, y: 55, team: 'A', number: 4 },
+        { x: 75, y: 85, team: 'B', number: 5 },
+        { x: 25, y: 85, team: 'B', number: 6 },
+        { x: 50, y: 25, team: 'N', number: 7 },
+        { x: 60, y: 50, team: 'N', number: 8 },
+        { x: 40, y: 75, team: 'N', number: 9 }
+      ],
+      [
+        { x: 20, y: 50, team: 'A', number: 1 },
+        { x: 30, y: 10, team: 'A', number: 2 },
+        { x: 70, y: 10, team: 'A', number: 3 },
+        { x: 90, y: 50, team: 'A', number: 4 },
+        { x: 70, y: 90, team: 'B', number: 5 },
+        { x: 30, y: 90, team: 'B', number: 6 },
+        { x: 55, y: 30, team: 'N', number: 7 },
+        { x: 50, y: 55, team: 'N', number: 8 },
+        { x: 45, y: 70, team: 'N', number: 9 }
+      ],
+      [
+        { x: 15, y: 45, team: 'A', number: 1 },
+        { x: 25, y: 15, team: 'A', number: 2 },
+        { x: 65, y: 15, team: 'A', number: 3 },
+        { x: 85, y: 45, team: 'A', number: 4 },
+        { x: 65, y: 85, team: 'B', number: 5 },
+        { x: 35, y: 85, team: 'B', number: 6 },
+        { x: 50, y: 35, team: 'N', number: 7 },
+        { x: 45, y: 50, team: 'N', number: 8 },
+        { x: 55, y: 75, team: 'N', number: 9 }
+      ],
+      [
+        { x: 10, y: 50, team: 'A', number: 1 },
+        { x: 30, y: 10, team: 'A', number: 2 },
+        { x: 70, y: 10, team: 'A', number: 3 },
+        { x: 90, y: 50, team: 'A', number: 4 },
+        { x: 70, y: 90, team: 'B', number: 5 },
+        { x: 30, y: 90, team: 'B', number: 6 },
+        { x: 50, y: 30, team: 'N', number: 7 },
+        { x: 50, y: 50, team: 'N', number: 8 },
+        { x: 50, y: 70, team: 'N', number: 9 }
+      ]
     ]
   },
   {
@@ -185,6 +339,438 @@ const DRILLS = [
       { x: 45, y: 60 },
       { x: 65, y: 45 },
       { x: 80, y: 30 }
+    ],
+    players: [
+      [
+        { x: 15, y: 75, team: 'A', number: 1 },
+        { x: 35, y: 65, team: 'A', number: 2 },
+        { x: 55, y: 65, team: 'A', number: 3 },
+        { x: 85, y: 25, team: 'A', number: 4 },
+        { x: 25, y: 45, team: 'B', number: 5 },
+        { x: 75, y: 45, team: 'B', number: 6 }
+      ],
+      [
+        { x: 20, y: 70, team: 'A', number: 1 },
+        { x: 40, y: 60, team: 'A', number: 2 },
+        { x: 60, y: 60, team: 'A', number: 3 },
+        { x: 80, y: 30, team: 'A', number: 4 },
+        { x: 30, y: 50, team: 'B', number: 5 },
+        { x: 70, y: 40, team: 'B', number: 6 }
+      ],
+      [
+        { x: 15, y: 75, team: 'A', number: 1 },
+        { x: 45, y: 55, team: 'A', number: 2 },
+        { x: 65, y: 55, team: 'A', number: 3 },
+        { x: 85, y: 25, team: 'A', number: 4 },
+        { x: 25, y: 40, team: 'B', number: 5 },
+        { x: 75, y: 50, team: 'B', number: 6 }
+      ],
+      [
+        { x: 10, y: 80, team: 'A', number: 1 },
+        { x: 40, y: 60, team: 'A', number: 2 },
+        { x: 60, y: 60, team: 'A', number: 3 },
+        { x: 90, y: 20, team: 'A', number: 4 },
+        { x: 30, y: 45, team: 'B', number: 5 },
+        { x: 70, y: 45, team: 'B', number: 6 }
+      ]
+    ]
+  },
+  {
+    id: 'pase_pared',
+    name: 'Pase y pared',
+    duration: 12,
+    description: 'Jugador 1 pasa al Jugador 2 (pared), quien devuelve a un toque mientras Jugador 1 se mueve.',
+    cues: [
+      {
+        keyword: 'Pase al pie',
+        description: 'El primer pase debe llegar exactamente al pie del compañero pared.'
+      },
+      {
+        keyword: 'Un toque',
+        description: 'El pared devuelve de primera sin controlar el balón.'
+      },
+      {
+        keyword: 'Sincronización',
+        description: 'Inicia tu carrera justo cuando haces el pase inicial al pared.'
+      }
+    ],
+    path: [
+      { x: 20, y: 50 },
+      { x: 45, y: 50 },
+      { x: 45, y: 30 },
+      { x: 75, y: 30 }
+    ],
+    players: [
+      [
+        { x: 25, y: 45, team: 'A', number: 'A' },
+        { x: 45, y: 55, team: 'A', number: 'B' }
+      ],
+      [
+        { x: 30, y: 45, team: 'A', number: 'A' },
+        { x: 45, y: 55, team: 'A', number: 'B' }
+      ],
+      [
+        { x: 40, y: 35, team: 'A', number: 'A' },
+        { x: 45, y: 55, team: 'A', number: 'B' }
+      ],
+      [
+        { x: 70, y: 35, team: 'A', number: 'A' },
+        { x: 45, y: 55, team: 'A', number: 'B' }
+      ]
+    ]
+  },
+  {
+    id: 'conduccion_basica',
+    name: 'Conducción básica',
+    duration: 8,
+    description: 'Conducción libre con ambos pies, cambios de dirección y paradas.',
+    cues: [
+      {
+        keyword: 'Contacto suave',
+        description: 'Mantén el balón cerca con toques ligeros, sin golpearlo fuerte.'
+      },
+      {
+        keyword: 'Ambos pies',
+        description: 'Alterna entre pie derecho e izquierdo para mejorar la coordinación.'
+      },
+      {
+        keyword: 'Cabeza arriba',
+        description: 'Mira hacia adelante mientras conduces para mantener la visión de juego.'
+      }
+    ],
+    path: [
+      { x: 10, y: 50 },
+      { x: 30, y: 30 },
+      { x: 50, y: 70 },
+      { x: 70, y: 20 },
+      { x: 90, y: 50 }
+    ],
+    players: [
+      [{ x: 15, y: 45, team: 'A', number: 1 }],
+      [{ x: 25, y: 35, team: 'A', number: 1 }],
+      [{ x: 45, y: 65, team: 'A', number: 1 }],
+      [{ x: 65, y: 25, team: 'A', number: 1 }],
+      [{ x: 85, y: 45, team: 'A', number: 1 }]
+    ]
+  },
+  {
+    id: 'triangulacion',
+    name: 'Triangulación 3v1',
+    duration: 15,
+    description: 'Tres jugadores mantienen posesión contra uno, trabajando triángulos de pase.',
+    cues: [
+      {
+        keyword: 'Triángulos',
+        description: 'Forma triángulos para siempre tener dos opciones de pase disponibles.'
+      },
+      {
+        keyword: 'Movilidad',
+        description: 'Muévete constantemente para ofrecer líneas de pase limpias.'
+      },
+      {
+        keyword: 'Paciencia',
+        description: 'No fuerces pases arriesgados, espera la oportunidad correcta.'
+      }
+    ],
+    path: [
+      { x: 20, y: 70 },
+      { x: 50, y: 20 },
+      { x: 80, y: 70 },
+      { x: 20, y: 70 }
+    ],
+    players: [
+      [
+        { x: 20, y: 70, team: 'A', number: 'A' },
+        { x: 50, y: 20, team: 'A', number: 'B' },
+        { x: 80, y: 70, team: 'A', number: 'C' },
+        { x: 50, y: 55, team: 'B', number: 'D' }
+      ],
+      [
+        { x: 20, y: 70, team: 'A', number: 'A' },
+        { x: 50, y: 20, team: 'A', number: 'B' },
+        { x: 80, y: 70, team: 'A', number: 'C' },
+        { x: 40, y: 45, team: 'B', number: 'D' }
+      ],
+      [
+        { x: 20, y: 70, team: 'A', number: 'A' },
+        { x: 50, y: 20, team: 'A', number: 'B' },
+        { x: 80, y: 70, team: 'A', number: 'C' },
+        { x: 60, y: 45, team: 'B', number: 'D' }
+      ],
+      [
+        { x: 20, y: 70, team: 'A', number: 'A' },
+        { x: 50, y: 20, team: 'A', number: 'B' },
+        { x: 80, y: 70, team: 'A', number: 'C' },
+        { x: 50, y: 60, team: 'B', number: 'D' }
+      ]
+    ]
+  },
+  {
+    id: 'portero_basico',
+    name: 'Portero: Técnica básica',
+    duration: 15,
+    description: 'Posición básica, blocaje y caídas. Enseñar la postura correcta del portero y movimientos fundamentales.',
+    cues: [
+      {
+        keyword: 'Posición de base',
+        description: 'Pies separados a la anchura de hombros, rodillas flexionadas, manos a la altura del pecho.'
+      },
+      {
+        keyword: 'Blocaje seguro',
+        description: 'Abraza el balón contra el pecho, protégelo con todo el cuerpo.'
+      },
+      {
+        keyword: 'Caída lateral',
+        description: 'Cae sobre el costado, no sobre la espalda. Protege el balón al tocar el suelo.'
+      }
+    ],
+    path: [
+      { x: 85, y: 40 },
+      { x: 75, y: 50 },
+      { x: 85, y: 60 },
+      { x: 85, y: 50 }
+    ],
+    players: [
+      [
+        { x: 85, y: 50, team: 'A', number: 'GK' },
+        { x: 50, y: 40, team: 'B', number: 'E' }
+      ],
+      [
+        { x: 80, y: 45, team: 'A', number: 'GK' },
+        { x: 50, y: 50, team: 'B', number: 'E' }
+      ],
+      [
+        { x: 85, y: 55, team: 'A', number: 'GK' },
+        { x: 50, y: 60, team: 'B', number: 'E' }
+      ],
+      [
+        { x: 85, y: 50, team: 'A', number: 'GK' },
+        { x: 50, y: 50, team: 'B', number: 'E' }
+      ]
+    ]
+  },
+  {
+    id: 'portero_reflejos',
+    name: 'Portero: Reflejos y agilidad',
+    duration: 12,
+    description: 'Ejercicio de tiros rápidos desde corta distancia para mejorar tiempo de reacción y coordinación.',
+    cues: [
+      {
+        keyword: 'Mirada en el balón',
+        description: 'Mantén los ojos siempre fijos en el balón, no en el tirador.'
+      },
+      {
+        keyword: 'Reacción explosiva',
+        description: 'Primer paso rápido hacia la dirección del tiro, usa las piernas para impulsarte.'
+      },
+      {
+        keyword: 'Manos activas',
+        description: 'Mantén las manos listas, con dedos relajados y palmas hacia el balón.'
+      }
+    ],
+    path: [
+      { x: 70, y: 30 },
+      { x: 85, y: 45 },
+      { x: 70, y: 60 },
+      { x: 85, y: 45 }
+    ],
+    players: [
+      [
+        { x: 85, y: 50, team: 'A', number: 'GK' },
+        { x: 65, y: 35, team: 'B', number: '1' },
+        { x: 65, y: 65, team: 'B', number: '2' }
+      ],
+      [
+        { x: 80, y: 40, team: 'A', number: 'GK' },
+        { x: 65, y: 35, team: 'B', number: '1' },
+        { x: 65, y: 65, team: 'B', number: '2' }
+      ],
+      [
+        { x: 85, y: 60, team: 'A', number: 'GK' },
+        { x: 65, y: 35, team: 'B', number: '1' },
+        { x: 65, y: 65, team: 'B', number: '2' }
+      ],
+      [
+        { x: 85, y: 50, team: 'A', number: 'GK' },
+        { x: 65, y: 35, team: 'B', number: '1' },
+        { x: 65, y: 65, team: 'B', number: '2' }
+      ]
+    ]
+  },
+  {
+    id: 'defensa_marcaje',
+    name: 'Defensa: Marcaje y cobertura',
+    duration: 18,
+    description: 'Trabajo de marcaje individual y ayudas defensivas entre compañeros.',
+    cues: [
+      {
+        keyword: 'Distancia correcta',
+        description: 'Mantente a un brazo de distancia del atacante, ni muy lejos ni muy cerca.'
+      },
+      {
+        keyword: 'Perfil defensivo',
+        description: 'Colócate de medio lado para ver balón y rival al mismo tiempo.'
+      },
+      {
+        keyword: 'Comunicación constante',
+        description: 'Habla con tus compañeros: "cubro", "cambio", "presiona".'
+      }
+    ],
+    path: [
+      { x: 30, y: 30 },
+      { x: 50, y: 40 },
+      { x: 70, y: 30 },
+      { x: 50, y: 20 }
+    ],
+    players: [
+      [
+        { x: 25, y: 35, team: 'B', number: 'D1' },
+        { x: 45, y: 25, team: 'B', number: 'D2' },
+        { x: 35, y: 30, team: 'A', number: 'A1' },
+        { x: 55, y: 35, team: 'A', number: 'A2' }
+      ],
+      [
+        { x: 35, y: 40, team: 'B', number: 'D1' },
+        { x: 55, y: 35, team: 'B', number: 'D2' },
+        { x: 45, y: 45, team: 'A', number: 'A1' },
+        { x: 65, y: 40, team: 'A', number: 'A2' }
+      ],
+      [
+        { x: 45, y: 35, team: 'B', number: 'D1' },
+        { x: 65, y: 25, team: 'B', number: 'D2' },
+        { x: 55, y: 25, team: 'A', number: 'A1' },
+        { x: 75, y: 30, team: 'A', number: 'A2' }
+      ],
+      [
+        { x: 35, y: 25, team: 'B', number: 'D1' },
+        { x: 55, y: 15, team: 'B', number: 'D2' },
+        { x: 45, y: 15, team: 'A', number: 'A1' },
+        { x: 65, y: 25, team: 'A', number: 'A2' }
+      ]
+    ]
+  },
+  {
+    id: 'medio_distribucion',
+    name: 'Mediocampo: Distribución',
+    duration: 20,
+    description: 'Ejercicio de pase y recepción desde el centro del campo hacia todas las posiciones.',
+    cues: [
+      {
+        keyword: 'Visión 360°',
+        description: 'Antes de recibir, mira alrededor para conocer todas tus opciones de pase.'
+      },
+      {
+        keyword: 'Primer toque orientado',
+        description: 'Controla el balón orientándolo hacia donde vas a pasar o avanzar.'
+      },
+      {
+        keyword: 'Cambio de ritmo',
+        description: 'Alterna entre pases rápidos y pausas para controlar el tempo del juego.'
+      }
+    ],
+    path: [
+      { x: 50, y: 50 },
+      { x: 25, y: 25 },
+      { x: 75, y: 25 },
+      { x: 75, y: 75 },
+      { x: 25, y: 75 },
+      { x: 50, y: 50 }
+    ],
+    players: [
+      [
+        { x: 50, y: 50, team: 'A', number: 'MC' },
+        { x: 20, y: 30, team: 'A', number: 'LI' },
+        { x: 80, y: 30, team: 'A', number: 'LD' },
+        { x: 80, y: 70, team: 'A', number: 'RD' },
+        { x: 20, y: 70, team: 'A', number: 'RI' }
+      ],
+      [
+        { x: 45, y: 45, team: 'A', number: 'MC' },
+        { x: 20, y: 30, team: 'A', number: 'LI' },
+        { x: 80, y: 30, team: 'A', number: 'LD' },
+        { x: 80, y: 70, team: 'A', number: 'RD' },
+        { x: 20, y: 70, team: 'A', number: 'RI' }
+      ],
+      [
+        { x: 55, y: 45, team: 'A', number: 'MC' },
+        { x: 20, y: 30, team: 'A', number: 'LI' },
+        { x: 80, y: 30, team: 'A', number: 'LD' },
+        { x: 80, y: 70, team: 'A', number: 'RD' },
+        { x: 20, y: 70, team: 'A', number: 'RI' }
+      ],
+      [
+        { x: 55, y: 55, team: 'A', number: 'MC' },
+        { x: 20, y: 30, team: 'A', number: 'LI' },
+        { x: 80, y: 30, team: 'A', number: 'LD' },
+        { x: 80, y: 70, team: 'A', number: 'RD' },
+        { x: 20, y: 70, team: 'A', number: 'RI' }
+      ],
+      [
+        { x: 45, y: 55, team: 'A', number: 'MC' },
+        { x: 20, y: 30, team: 'A', number: 'LI' },
+        { x: 80, y: 30, team: 'A', number: 'LD' },
+        { x: 80, y: 70, team: 'A', number: 'RD' },
+        { x: 20, y: 70, team: 'A', number: 'RI' }
+      ],
+      [
+        { x: 50, y: 50, team: 'A', number: 'MC' },
+        { x: 20, y: 30, team: 'A', number: 'LI' },
+        { x: 80, y: 30, team: 'A', number: 'LD' },
+        { x: 80, y: 70, team: 'A', number: 'RD' },
+        { x: 20, y: 70, team: 'A', number: 'RI' }
+      ]
+    ]
+  },
+  {
+    id: 'delantero_desmarque',
+    name: 'Delantero: Desmarque y definición',
+    duration: 15,
+    description: 'Movimientos de desmarque para recibir en área y finalizar con eficacia.',
+    cues: [
+      {
+        keyword: 'Timing del desmarque',
+        description: 'Inicia el movimiento cuando tu compañero esté listo para pasar, no antes.'
+      },
+      {
+        keyword: 'Cambio de velocidad',
+        description: 'Empieza lento para engañar al defensor, después acelera hacia el espacio.'
+      },
+      {
+        keyword: 'Definición al primer toque',
+        description: 'Si tienes ángulo, define de primera. No controles si no es necesario.'
+      }
+    ],
+    path: [
+      { x: 60, y: 60 },
+      { x: 70, y: 40 },
+      { x: 85, y: 30 },
+      { x: 90, y: 45 }
+    ],
+    players: [
+      [
+        { x: 55, y: 65, team: 'A', number: 'DEL' },
+        { x: 30, y: 60, team: 'A', number: 'MC' },
+        { x: 70, y: 50, team: 'B', number: 'DF' },
+        { x: 85, y: 50, team: 'B', number: 'GK' }
+      ],
+      [
+        { x: 65, y: 45, team: 'A', number: 'DEL' },
+        { x: 30, y: 60, team: 'A', number: 'MC' },
+        { x: 75, y: 55, team: 'B', number: 'DF' },
+        { x: 85, y: 50, team: 'B', number: 'GK' }
+      ],
+      [
+        { x: 80, y: 35, team: 'A', number: 'DEL' },
+        { x: 30, y: 60, team: 'A', number: 'MC' },
+        { x: 70, y: 45, team: 'B', number: 'DF' },
+        { x: 85, y: 50, team: 'B', number: 'GK' }
+      ],
+      [
+        { x: 85, y: 40, team: 'A', number: 'DEL' },
+        { x: 30, y: 60, team: 'A', number: 'MC' },
+        { x: 65, y: 50, team: 'B', number: 'DF' },
+        { x: 85, y: 50, team: 'B', number: 'GK' }
+      ]
     ]
   }
 ];
@@ -758,7 +1344,7 @@ export default function App() {
                         >
                           <path
                             d="M0 0 L6 3 L0 6 z"
-                            fill="#dc2626"
+                            fill="#b91c1c"
                             filter="url(#roughArrow)"
                           />
                         </marker>
@@ -784,8 +1370,8 @@ export default function App() {
                         `${i === 0 ? 'M' : 'L'}${point.x + (Math.sin(i * 0.5) * 0.3)},${point.y + (Math.cos(i * 0.7) * 0.3)}`
                       ).join(' ')}`}
                       fill="none"
-                      stroke="#dc2626"
-                      strokeWidth="2.5"
+                      stroke="#b91c1c"
+                      strokeWidth="3"
                       strokeLinecap="round"
                       filter="url(#roughArrow)"
                       markerEnd="url(#bonvalletArrow)"
@@ -853,6 +1439,30 @@ export default function App() {
                   transition={{ type: 'tween', duration: 0.8, ease: 'easeInOut' }}
                   style={{ marginLeft: '-10px', marginTop: '-10px' }}
                 />
+              )}
+
+              {/* Player positions */}
+              {currentDrill.players && currentDrill.players[ballPosIndex] && (
+                <>
+                  {currentDrill.players[ballPosIndex].map((player, idx) => (
+                    <div
+                      key={idx}
+                      className="absolute w-8 h-8 rounded-full flex items-center justify-center text-xs font-bold transition-all duration-800"
+                      style={{
+                        left: `${player.x}%`,
+                        top: `${player.y}%`,
+                        marginLeft: '-16px',
+                        marginTop: '-16px',
+                        backgroundColor: player.team === 'A' ? '#3b82f6' : player.team === 'B' ? '#ef4444' : '#6b7280',
+                        color: 'white',
+                        border: whiteboardMode ? '2px solid #1e293b' : '2px solid rgba(255,255,255,0.3)',
+                        boxShadow: whiteboardMode ? '2px 2px 4px rgba(0,0,0,0.3)' : '0 2px 8px rgba(0,0,0,0.3)'
+                      }}
+                    >
+                      {player.number}
+                    </div>
+                  ))}
+                </>
               )}
             </div>
           </div>
