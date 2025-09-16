@@ -1367,7 +1367,7 @@ export default function App() {
                     /* Bonvallet-style hand-drawn arrows */
                     <path
                       d={`M${currentPath.map((point, i) =>
-                        `${i === 0 ? 'M' : 'L'}${point.x + (Math.sin(i * 0.5) * 0.3)},${point.y + (Math.cos(i * 0.7) * 0.3)}`
+                        `${i === 0 ? 'M' : 'L'}${point.x},${point.y}`
                       ).join(' ')}`}
                       fill="none"
                       stroke="#b91c1c"
