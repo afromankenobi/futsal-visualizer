@@ -57,12 +57,12 @@ const DRILLS = [
           'Da pasos pequeños para frenar y arrancar sin perder el control del balón.'
       }
     ],
-    // Define a square path for el balón to illustrate movimiento libre.
+    // Ball moves with players during "ladrón de colas" exercise.
     path: [
-      { x: 20, y: 25 },
-      { x: 70, y: 25 },
-      { x: 70, y: 75 },
-      { x: 20, y: 75 }
+      { x: 15, y: 15 },  // Follow player 1
+      { x: 75, y: 15 },  // Follow player 2
+      { x: 75, y: 75 },  // Follow player 3
+      { x: 15, y: 75 }   // Follow player 4
     ],
     players: [
       [
@@ -118,12 +118,12 @@ const DRILLS = [
           'Con el primer toque orienta el balón hacia tu siguiente acción, evitando controles estáticos.'
       }
     ],
-    // Y‑shaped path: base → centro → vértice → centro.
+    // Y‑shaped path: A → B → C → A (ball follows player positions exactly).
     path: [
-      { x: 25, y: 80 },
-      { x: 50, y: 50 },
-      { x: 75, y: 20 },
-      { x: 50, y: 50 }
+      { x: 20, y: 85 },  // Start with player A
+      { x: 50, y: 40 },  // Pass to player B
+      { x: 80, y: 15 },  // Pass to player C
+      { x: 20, y: 85 }   // Return to player A
     ],
     players: [
       [
@@ -170,12 +170,12 @@ const DRILLS = [
         description: 'No te quedes parado después de pasar; busca un nuevo espacio inmediatamente.'
       }
     ],
-    // Rectangular path around los cuatro vértices del rondo.
+    // Ball moves between the 4 outside players in rondo.
     path: [
-      { x: 25, y: 25 },
-      { x: 75, y: 25 },
-      { x: 75, y: 75 },
-      { x: 25, y: 75 }
+      { x: 15, y: 15 },  // Player 1
+      { x: 85, y: 15 },  // Player 2
+      { x: 85, y: 85 },  // Player 3
+      { x: 15, y: 85 }   // Player 4
     ],
     players: [
       [
@@ -395,10 +395,10 @@ const DRILLS = [
       }
     ],
     path: [
-      { x: 20, y: 50 },
-      { x: 45, y: 50 },
-      { x: 45, y: 30 },
-      { x: 75, y: 30 }
+      { x: 25, y: 45 },  // Start with player A
+      { x: 45, y: 55 },  // Pass to player B (wall)
+      { x: 45, y: 55 },  // B returns immediately
+      { x: 70, y: 35 }   // A receives and moves forward
     ],
     players: [
       [
@@ -406,11 +406,11 @@ const DRILLS = [
         { x: 45, y: 55, team: 'A', number: 'B' }
       ],
       [
-        { x: 30, y: 45, team: 'A', number: 'A' },
+        { x: 30, y: 40, team: 'A', number: 'A' },
         { x: 45, y: 55, team: 'A', number: 'B' }
       ],
       [
-        { x: 40, y: 35, team: 'A', number: 'A' },
+        { x: 50, y: 35, team: 'A', number: 'A' },
         { x: 45, y: 55, team: 'A', number: 'B' }
       ],
       [
@@ -525,10 +525,10 @@ const DRILLS = [
       }
     ],
     path: [
-      { x: 85, y: 40 },
-      { x: 75, y: 50 },
-      { x: 85, y: 60 },
-      { x: 85, y: 50 }
+      { x: 50, y: 40 },  // Start with field player
+      { x: 85, y: 50 },  // Pass to goalkeeper
+      { x: 50, y: 60 },  // Goalkeeper throws back
+      { x: 85, y: 50 }   // Back to goalkeeper
     ],
     players: [
       [
@@ -1444,24 +1444,55 @@ export default function App() {
               {/* Player positions */}
               {currentDrill.players && currentDrill.players[ballPosIndex] && (
                 <>
-                  {currentDrill.players[ballPosIndex].map((player, idx) => (
-                    <div
-                      key={idx}
-                      className="absolute w-8 h-8 rounded-full flex items-center justify-center text-xs font-bold transition-all duration-800"
-                      style={{
-                        left: `${player.x}%`,
-                        top: `${player.y}%`,
-                        marginLeft: '-16px',
-                        marginTop: '-16px',
-                        backgroundColor: player.team === 'A' ? '#3b82f6' : player.team === 'B' ? '#ef4444' : '#6b7280',
-                        color: 'white',
-                        border: whiteboardMode ? '2px solid #1e293b' : '2px solid rgba(255,255,255,0.3)',
-                        boxShadow: whiteboardMode ? '2px 2px 4px rgba(0,0,0,0.3)' : '0 2px 8px rgba(0,0,0,0.3)'
-                      }}
-                    >
-                      {player.number}
-                    </div>
-                  ))}
+                  {currentDrill.players[ballPosIndex].map((player, idx) => {
+                    // Calculate distance from ball to this player
+                    const ballPos = currentPath[ballPosIndex];
+                    const distance = Math.sqrt(Math.pow(player.x - ballPos.x, 2) + Math.pow(player.y - ballPos.y, 2));
+                    const hasAball = distance < 8; // Player "has" ball if within 8 units
+
+                    return (
+                      <div key={idx}>
+                        {/* Ball possession indicator */}
+                        {hasAball && (
+                          <div
+                            className="absolute rounded-full border-4 animate-pulse"
+                            style={{
+                              left: `${player.x}%`,
+                              top: `${player.y}%`,
+                              width: '48px',
+                              height: '48px',
+                              marginLeft: '-24px',
+                              marginTop: '-24px',
+                              borderColor: whiteboardMode ? '#dc2626' : '#fbbf24',
+                              borderStyle: 'dashed'
+                            }}
+                          />
+                        )}
+
+                        {/* Player circle */}
+                        <div
+                          className="absolute w-8 h-8 rounded-full flex items-center justify-center text-xs font-bold transition-all duration-800"
+                          style={{
+                            left: `${player.x}%`,
+                            top: `${player.y}%`,
+                            marginLeft: '-16px',
+                            marginTop: '-16px',
+                            backgroundColor: player.team === 'A' ? '#3b82f6' : player.team === 'B' ? '#ef4444' : '#6b7280',
+                            color: 'white',
+                            border: hasAball
+                              ? whiteboardMode ? '3px solid #dc2626' : '3px solid #fbbf24'
+                              : whiteboardMode ? '2px solid #1e293b' : '2px solid rgba(255,255,255,0.3)',
+                            boxShadow: hasAball
+                              ? '0 0 12px rgba(251, 191, 36, 0.6)'
+                              : whiteboardMode ? '2px 2px 4px rgba(0,0,0,0.3)' : '0 2px 8px rgba(0,0,0,0.3)',
+                            transform: hasAball ? 'scale(1.1)' : 'scale(1)'
+                          }}
+                        >
+                          {player.number}
+                        </div>
+                      </div>
+                    );
+                  })}
                 </>
               )}
             </div>
