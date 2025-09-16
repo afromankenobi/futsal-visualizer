@@ -4,7 +4,7 @@ export default defineConfig({
   e2e: {
     // Base URL points to the deployed GitHub Pages site. When running locally,
     // Cypress will prepend this base URL to cy.visit() paths. Adjust as needed.
-    baseUrl: 'https://afromankenobi.github.io/futsal-visualizer/',
+    baseUrl: 'http://jorgevargas.io/futsal-visualizer/',
 
     // Disable support file as this project doesn't use one
     supportFile: false,
