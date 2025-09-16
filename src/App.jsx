@@ -7,7 +7,12 @@ import {
   Boxes,
   X,
   Users,
-  Dice6
+  Dice6,
+  Save,
+  ChevronDown,
+  Plus,
+  Trash2,
+  Edit3
 } from 'lucide-react';
 
 /*
@@ -219,6 +224,49 @@ const DIFFICULTIES = [
   }
 ];
 
+// Workshop management functions
+const getWorkshops = () => {
+  try {
+    const workshops = localStorage.getItem('futsal-workshops');
+    return workshops ? JSON.parse(workshops) : [];
+  } catch (e) {
+    return [];
+  }
+};
+
+const saveWorkshop = (workshop) => {
+  try {
+    const workshops = getWorkshops();
+    const existingIndex = workshops.findIndex(w => w.id === workshop.id);
+
+    if (existingIndex >= 0) {
+      workshops[existingIndex] = workshop;
+    } else {
+      workshops.push(workshop);
+    }
+
+    localStorage.setItem('futsal-workshops', JSON.stringify(workshops));
+    return workshop;
+  } catch (e) {
+    console.error('Error saving workshop:', e);
+    return null;
+  }
+};
+
+const deleteWorkshop = (id) => {
+  try {
+    const workshops = getWorkshops();
+    const filtered = workshops.filter(w => w.id !== id);
+    localStorage.setItem('futsal-workshops', JSON.stringify(filtered));
+    return true;
+  } catch (e) {
+    console.error('Error deleting workshop:', e);
+    return false;
+  }
+};
+
+const generateId = () => Date.now().toString(36) + Math.random().toString(36).substr(2);
+
 // El componente principal de la aplicación.
 export default function App() {
   // Índice del drill actualmente seleccionado.
@@ -239,8 +287,28 @@ export default function App() {
   // Resultado de la última tirada de dado para dificultades.
   const [diceResult, setDiceResult] = useState(null);
 
+  // Workshop management state
+  const [currentWorkshop, setCurrentWorkshop] = useState(null);
+  const [showWorkshopDropdown, setShowWorkshopDropdown] = useState(false);
+  const [workshops, setWorkshops] = useState([]);
+  const [hasUnsavedChanges, setHasUnsavedChanges] = useState(false);
+  const [showSaveDialog, setShowSaveDialog] = useState(false);
+  const [newWorkshopName, setNewWorkshopName] = useState('');
+
   const currentDrill = DRILLS[currentDrillIndex];
   const currentPath = currentDrill.path;
+
+  // Load workshops on mount
+  useEffect(() => {
+    setWorkshops(getWorkshops());
+  }, []);
+
+  // Track changes for unsaved state
+  useEffect(() => {
+    if (currentWorkshop) {
+      setHasUnsavedChanges(true);
+    }
+  }, [currentDrillIndex, diceResult]);
 
   // Efecto que actualiza la posición del balón automáticamente cuando
   // isPlaying es true. Se ejecuta cada segundo y reinicia la posición al
@@ -262,6 +330,60 @@ export default function App() {
     return () => clearInterval(interval);
   }, [isPlaying, currentPath]);
 
+  // Workshop functions
+  const createWorkshop = (name) => {
+    const workshop = {
+      id: generateId(),
+      name: name.trim(),
+      drillIndex: currentDrillIndex,
+      difficulty: diceResult,
+      created: new Date().toISOString()
+    };
+
+    const saved = saveWorkshop(workshop);
+    if (saved) {
+      setCurrentWorkshop(saved);
+      setWorkshops(getWorkshops());
+      setHasUnsavedChanges(false);
+    }
+    return saved;
+  };
+
+  const loadWorkshop = (workshop) => {
+    setCurrentWorkshop(workshop);
+    setCurrentDrillIndex(workshop.drillIndex);
+    setDiceResult(workshop.difficulty);
+    setBallPosIndex(0);
+    setPasses(0);
+    setTooltip(null);
+    setHasUnsavedChanges(false);
+  };
+
+  const saveCurrentWorkshop = () => {
+    if (currentWorkshop) {
+      const updated = {
+        ...currentWorkshop,
+        drillIndex: currentDrillIndex,
+        difficulty: diceResult,
+        updated: new Date().toISOString()
+      };
+
+      const saved = saveWorkshop(updated);
+      if (saved) {
+        setCurrentWorkshop(saved);
+        setHasUnsavedChanges(false);
+      }
+    }
+  };
+
+  const deleteCurrentWorkshop = () => {
+    if (currentWorkshop && deleteWorkshop(currentWorkshop.id)) {
+      setCurrentWorkshop(null);
+      setWorkshops(getWorkshops());
+      setHasUnsavedChanges(false);
+    }
+  };
+
   // Lanza el dado y selecciona una dificultad al azar.
   const rollDice = () => {
     const idx = Math.floor(Math.random() * DIFFICULTIES.length);
@@ -273,11 +395,107 @@ export default function App() {
   // con el tamaño del contenedor.
   const pathString = currentPath.map((pos) => `${pos.x},${pos.y}`).join(' ');
 
+  const getWorkshopDisplayName = () => {
+    if (!currentWorkshop) return 'Sin guardar';
+    return currentWorkshop.name + (hasUnsavedChanges ? '*' : '');
+  };
+
   return (
     <div className="min-h-screen p-6 bg-neutral-950 text-white">
       {/* Header */}
       <div className="flex items-center justify-between mb-8">
-        <h1 className="text-2xl font-bold">Futsal Trainer</h1>
+        <div className="flex items-center gap-4">
+          <h1 className="text-2xl font-bold">Futsal Trainer</h1>
+
+          {/* Workshop Selector */}
+          <div className="relative">
+            <button
+              className="flex items-center gap-2 bg-neutral-800 border border-neutral-700 rounded-lg px-4 py-2 hover:bg-neutral-700 transition-colors"
+              onClick={() => setShowWorkshopDropdown(!showWorkshopDropdown)}
+            >
+              <span className="text-sm font-medium">
+                {getWorkshopDisplayName()}
+              </span>
+              <ChevronDown size={16} />
+            </button>
+
+            {/* Workshop Dropdown */}
+            {showWorkshopDropdown && (
+              <div className="absolute top-full left-0 mt-1 w-80 bg-neutral-800 border border-neutral-700 rounded-lg shadow-xl z-50">
+                <div className="p-3 border-b border-neutral-700">
+                  <button
+                    className="w-full flex items-center gap-2 px-3 py-2 text-left text-sm bg-blue-600 hover:bg-blue-500 rounded-lg transition-colors"
+                    onClick={() => {
+                      setShowSaveDialog(true);
+                      setShowWorkshopDropdown(false);
+                    }}
+                  >
+                    <Plus size={16} />
+                    Nuevo workshop
+                  </button>
+                </div>
+
+                <div className="max-h-60 overflow-y-auto">
+                  {workshops.length === 0 ? (
+                    <div className="p-4 text-center text-neutral-400 text-sm">
+                      No hay workshops guardados
+                    </div>
+                  ) : (
+                    workshops.map((workshop) => (
+                      <div
+                        key={workshop.id}
+                        className={`flex items-center justify-between p-3 hover:bg-neutral-700 border-b border-neutral-700/50 ${
+                          currentWorkshop?.id === workshop.id ? 'bg-neutral-700' : ''
+                        }`}
+                      >
+                        <button
+                          className="flex-1 text-left text-sm"
+                          onClick={() => {
+                            loadWorkshop(workshop);
+                            setShowWorkshopDropdown(false);
+                          }}
+                        >
+                          <div className="font-medium">{workshop.name}</div>
+                          <div className="text-xs text-neutral-400">
+                            {DRILLS[workshop.drillIndex]?.name}
+                          </div>
+                        </button>
+
+                        {currentWorkshop?.id === workshop.id && (
+                          <button
+                            className="ml-2 p-1 text-red-400 hover:text-red-300 hover:bg-red-900/20 rounded"
+                            onClick={() => {
+                              if (confirm('¿Eliminar este workshop?')) {
+                                deleteCurrentWorkshop();
+                                setShowWorkshopDropdown(false);
+                              }
+                            }}
+                            title="Eliminar workshop"
+                          >
+                            <Trash2 size={14} />
+                          </button>
+                        )}
+                      </div>
+                    ))
+                  )}
+                </div>
+              </div>
+            )}
+          </div>
+
+          {/* Save Button */}
+          {(currentWorkshop || hasUnsavedChanges) && (
+            <button
+              className="p-2 rounded-lg bg-green-600 hover:bg-green-500 transition-colors"
+              onClick={() => currentWorkshop ? saveCurrentWorkshop() : setShowSaveDialog(true)}
+              title={currentWorkshop ? 'Guardar cambios' : 'Guardar workshop'}
+            >
+              <Save size={16} />
+            </button>
+          )}
+        </div>
+
+        {/* Controls */}
         <div className="flex items-center gap-1">
           <button
             className="p-2 rounded-lg hover:bg-neutral-800 transition-colors"
@@ -302,6 +520,54 @@ export default function App() {
           </button>
         </div>
       </div>
+
+      {/* Save Dialog */}
+      {showSaveDialog && (
+        <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50">
+          <div className="bg-neutral-800 rounded-xl p-6 w-96">
+            <h3 className="text-lg font-semibold mb-4">Guardar Workshop</h3>
+            <input
+              type="text"
+              value={newWorkshopName}
+              onChange={(e) => setNewWorkshopName(e.target.value)}
+              placeholder="Nombre del workshop..."
+              className="w-full bg-neutral-700 border border-neutral-600 rounded-lg px-3 py-2 mb-4"
+              autoFocus
+            />
+            <div className="flex gap-2">
+              <button
+                className="flex-1 bg-green-600 hover:bg-green-500 text-white py-2 rounded-lg transition-colors"
+                onClick={() => {
+                  if (newWorkshopName.trim()) {
+                    createWorkshop(newWorkshopName);
+                    setNewWorkshopName('');
+                    setShowSaveDialog(false);
+                  }
+                }}
+              >
+                Guardar
+              </button>
+              <button
+                className="flex-1 bg-neutral-700 hover:bg-neutral-600 text-white py-2 rounded-lg transition-colors"
+                onClick={() => {
+                  setNewWorkshopName('');
+                  setShowSaveDialog(false);
+                }}
+              >
+                Cancelar
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* Click outside to close dropdown */}
+      {showWorkshopDropdown && (
+        <div
+          className="fixed inset-0 z-40"
+          onClick={() => setShowWorkshopDropdown(false)}
+        />
+      )}
 
       <div className="flex gap-6">
         {/* Main field area */}
