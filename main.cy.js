@@ -4,8 +4,8 @@ describe('Futsal Visualizer', () => {
     // to the deployed site or local dev server depending on configuration.
     cy.visit('/');
 
-    // Verify page loads by checking for the main heading
-    cy.contains('Futsal Trainer').should('be.visible');
+    // Verify page loads by checking for the main heading (currently deployed version)
+    cy.contains('Visualizador de sesión de baby fútbol').should('be.visible');
 
     // Find the play button by looking for buttons and clicking the first one (play/pause button)
     cy.get('button').first().should('be.visible').click();
