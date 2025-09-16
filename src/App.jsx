@@ -12,7 +12,8 @@ import {
   ChevronDown,
   Plus,
   Trash2,
-  Edit3
+  Edit3,
+  PenTool
 } from 'lucide-react';
 
 /*
@@ -277,6 +278,8 @@ export default function App() {
   const [showArrows, setShowArrows] = useState(true);
   // Activa o desactiva la perspectiva 3D ligera.
   const [show3D, setShow3D] = useState(false);
+  // Activa o desactiva el modo pizarra estilo Bonvallet.
+  const [whiteboardMode, setWhiteboardMode] = useState(false);
   // Guarda la cue actualmente mostrada en el tooltip.
   const [tooltip, setTooltip] = useState(null);
   // Índice de posición del balón en la ruta del drill.
@@ -401,7 +404,11 @@ export default function App() {
   };
 
   return (
-    <div className="min-h-screen p-6 bg-neutral-950 text-white">
+    <div className={`min-h-screen p-6 transition-colors duration-500 ${
+      whiteboardMode
+        ? 'bg-slate-50 text-slate-800'
+        : 'bg-neutral-950 text-white'
+    }`}>
       {/* Header */}
       <div className="flex items-center justify-between mb-8">
         <div className="flex items-center gap-4">
@@ -410,7 +417,11 @@ export default function App() {
           {/* Workshop Selector */}
           <div className="relative">
             <button
-              className="flex items-center gap-2 bg-neutral-800 border border-neutral-700 rounded-lg px-4 py-2 hover:bg-neutral-700 transition-colors"
+              className={`flex items-center gap-2 border rounded-lg px-4 py-2 transition-colors ${
+                whiteboardMode
+                  ? 'bg-white border-slate-300 hover:bg-slate-50 text-slate-800'
+                  : 'bg-neutral-800 border-neutral-700 hover:bg-neutral-700 text-white'
+              }`}
               onClick={() => setShowWorkshopDropdown(!showWorkshopDropdown)}
             >
               <span className="text-sm font-medium">
@@ -498,25 +509,54 @@ export default function App() {
         {/* Controls */}
         <div className="flex items-center gap-1">
           <button
-            className="p-2 rounded-lg hover:bg-neutral-800 transition-colors"
+            className={`p-2 rounded-lg transition-colors ${
+              whiteboardMode ? 'hover:bg-slate-200' : 'hover:bg-neutral-800'
+            }`}
             onClick={() => setIsPlaying((p) => !p)}
             title={isPlaying ? 'Pausar' : 'Reproducir'}
           >
             {isPlaying ? <Pause size={20} /> : <Play size={20} />}
           </button>
           <button
-            className={`p-2 rounded-lg transition-colors ${showArrows ? 'bg-neutral-700 text-white' : 'hover:bg-neutral-800'}`}
+            className={`p-2 rounded-lg transition-colors ${
+              showArrows
+                ? whiteboardMode
+                  ? 'bg-slate-300 text-slate-800'
+                  : 'bg-neutral-700 text-white'
+                : whiteboardMode
+                ? 'hover:bg-slate-200'
+                : 'hover:bg-neutral-800'
+            }`}
             onClick={() => setShowArrows((s) => !s)}
             title={showArrows ? 'Ocultar flechas' : 'Mostrar flechas'}
           >
             <ArrowRight size={20} />
           </button>
           <button
-            className={`p-2 rounded-lg transition-colors ${show3D ? 'bg-neutral-700 text-white' : 'hover:bg-neutral-800'}`}
+            className={`p-2 rounded-lg transition-colors ${
+              show3D
+                ? whiteboardMode
+                  ? 'bg-slate-300 text-slate-800'
+                  : 'bg-neutral-700 text-white'
+                : whiteboardMode
+                ? 'hover:bg-slate-200'
+                : 'hover:bg-neutral-800'
+            }`}
             onClick={() => setShow3D((s) => !s)}
             title={show3D ? 'Vista 2D' : 'Vista 3D'}
           >
             <Boxes size={20} />
+          </button>
+          <button
+            className={`p-2 rounded-lg transition-colors ${
+              whiteboardMode
+                ? 'bg-orange-500 text-white shadow-lg'
+                : 'hover:bg-neutral-800'
+            }`}
+            onClick={() => setWhiteboardMode((w) => !w)}
+            title={whiteboardMode ? 'Modo Digital' : 'Modo Pizarra'}
+          >
+            <PenTool size={20} />
           </button>
         </div>
       </div>
@@ -574,7 +614,11 @@ export default function App() {
         <div className="flex-1">
           <div className="mb-4">
             <select
-              className="bg-neutral-800 border border-neutral-700 rounded-lg px-4 py-2 text-lg font-medium w-full max-w-md"
+              className={`border rounded-lg px-4 py-2 text-lg font-medium w-full max-w-md transition-colors ${
+                whiteboardMode
+                  ? 'bg-white border-slate-300 text-slate-800'
+                  : 'bg-neutral-800 border-neutral-700 text-white'
+              }`}
               value={currentDrillIndex}
               onChange={(e) => {
                 const idx = Number(e.target.value);
@@ -600,9 +644,13 @@ export default function App() {
             }}
           >
             <div
-              className="relative w-full h-[28rem] bg-gradient-to-br from-green-600/90 to-green-700/90"
+              className={`relative w-full h-[28rem] transition-all duration-500 ${
+                whiteboardMode
+                  ? 'bg-white border-4 border-slate-400 shadow-inner'
+                  : 'bg-gradient-to-br from-green-600/90 to-green-700/90'
+              }`}
               style={
-                show3D
+                show3D && !whiteboardMode
                   ? {
                       transform: 'rotateX(25deg) skewY(-10deg)',
                       transformOrigin: 'center top'
@@ -610,14 +658,81 @@ export default function App() {
                   : {}
               }
             >
-              {/* Field lines - more realistic futsal court */}
-              <div className="absolute inset-6 border-2 border-white/30 rounded-lg"></div>
-              <div className="absolute left-1/2 top-6 bottom-6 w-0.5 bg-white/30"></div>
-              <div className="absolute left-1/2 top-1/2 w-20 h-20 border-2 border-white/30 rounded-full -translate-x-1/2 -translate-y-1/2"></div>
+              {whiteboardMode ? (
+                /* Bonvallet-style whiteboard field */
+                <>
+                  {/* Hand-drawn field outline */}
+                  <svg className="absolute inset-0 w-full h-full" viewBox="0 0 100 100" preserveAspectRatio="none">
+                    <defs>
+                      <filter id="rough">
+                        <feTurbulence baseFrequency="0.04" numOctaves="3" result="noise"/>
+                        <feDisplacementMap in="SourceGraphic" in2="noise" scale="0.5"/>
+                      </filter>
+                    </defs>
 
-              {/* Goal areas */}
-              <div className="absolute left-6 top-1/2 w-16 h-24 border-2 border-white/25 rounded-r-lg -translate-y-1/2"></div>
-              <div className="absolute right-6 top-1/2 w-16 h-24 border-2 border-white/25 rounded-l-lg -translate-y-1/2"></div>
+                    {/* Field boundary - hand-drawn style */}
+                    <path
+                      d="M8,12 L92,12 L92,88 L8,88 Z"
+                      fill="none"
+                      stroke="#1e293b"
+                      strokeWidth="0.8"
+                      filter="url(#rough)"
+                    />
+
+                    {/* Center line */}
+                    <path
+                      d="M50,12 L50,88"
+                      stroke="#1e293b"
+                      strokeWidth="0.6"
+                      filter="url(#rough)"
+                    />
+
+                    {/* Center circle */}
+                    <circle
+                      cx="50"
+                      cy="50"
+                      r="10"
+                      fill="none"
+                      stroke="#1e293b"
+                      strokeWidth="0.6"
+                      filter="url(#rough)"
+                    />
+
+                    {/* Goal areas */}
+                    <path
+                      d="M8,35 L20,35 L20,65 L8,65"
+                      fill="none"
+                      stroke="#1e293b"
+                      strokeWidth="0.6"
+                      filter="url(#rough)"
+                    />
+                    <path
+                      d="M92,35 L80,35 L80,65 L92,65"
+                      fill="none"
+                      stroke="#1e293b"
+                      strokeWidth="0.6"
+                      filter="url(#rough)"
+                    />
+                  </svg>
+
+                  {/* Bonvallet coaching annotations */}
+                  <div className="absolute top-2 left-4 text-xs font-bold text-red-600 transform -rotate-2">
+                    PIZARRA TÁCTICA
+                  </div>
+                </>
+              ) : (
+                /* Digital field */
+                <>
+                  {/* Field lines - more realistic futsal court */}
+                  <div className="absolute inset-6 border-2 border-white/30 rounded-lg"></div>
+                  <div className="absolute left-1/2 top-6 bottom-6 w-0.5 bg-white/30"></div>
+                  <div className="absolute left-1/2 top-1/2 w-20 h-20 border-2 border-white/30 rounded-full -translate-x-1/2 -translate-y-1/2"></div>
+
+                  {/* Goal areas */}
+                  <div className="absolute left-6 top-1/2 w-16 h-24 border-2 border-white/25 rounded-r-lg -translate-y-1/2"></div>
+                  <div className="absolute right-6 top-1/2 w-16 h-24 border-2 border-white/25 rounded-l-lg -translate-y-1/2"></div>
+                </>
+              )}
 
               {/* Path arrows */}
               {showArrows && (
@@ -627,63 +742,165 @@ export default function App() {
                   preserveAspectRatio="none"
                 >
                   <defs>
-                    <marker
-                      id="arrow"
-                      markerWidth="4"
-                      markerHeight="4"
-                      refX="0"
-                      refY="2"
-                      orient="auto"
-                    >
-                      <path d="M0 0 L4 2 L0 4 z" fill="rgba(255,255,255,0.8)" />
-                    </marker>
+                    {whiteboardMode ? (
+                      <>
+                        <filter id="roughArrow">
+                          <feTurbulence baseFrequency="0.08" numOctaves="2" result="noise"/>
+                          <feDisplacementMap in="SourceGraphic" in2="noise" scale="0.8"/>
+                        </filter>
+                        <marker
+                          id="bonvalletArrow"
+                          markerWidth="6"
+                          markerHeight="6"
+                          refX="0"
+                          refY="3"
+                          orient="auto"
+                        >
+                          <path
+                            d="M0 0 L6 3 L0 6 z"
+                            fill="#dc2626"
+                            filter="url(#roughArrow)"
+                          />
+                        </marker>
+                      </>
+                    ) : (
+                      <marker
+                        id="arrow"
+                        markerWidth="4"
+                        markerHeight="4"
+                        refX="0"
+                        refY="2"
+                        orient="auto"
+                      >
+                        <path d="M0 0 L4 2 L0 4 z" fill="rgba(255,255,255,0.8)" />
+                      </marker>
+                    )}
                   </defs>
-                  <polyline
-                    points={pathString}
-                    fill="none"
-                    stroke="rgba(255,255,255,0.8)"
-                    strokeWidth="2"
-                    strokeDasharray="5,5"
-                    markerEnd="url(#arrow)"
-                  />
+
+                  {whiteboardMode ? (
+                    /* Bonvallet-style hand-drawn arrows */
+                    <path
+                      d={`M${currentPath.map((point, i) =>
+                        `${i === 0 ? 'M' : 'L'}${point.x + (Math.sin(i * 0.5) * 0.3)},${point.y + (Math.cos(i * 0.7) * 0.3)}`
+                      ).join(' ')}`}
+                      fill="none"
+                      stroke="#dc2626"
+                      strokeWidth="2.5"
+                      strokeLinecap="round"
+                      filter="url(#roughArrow)"
+                      markerEnd="url(#bonvalletArrow)"
+                    />
+                  ) : (
+                    /* Digital arrows */
+                    <polyline
+                      points={pathString}
+                      fill="none"
+                      stroke="rgba(255,255,255,0.8)"
+                      strokeWidth="2"
+                      strokeDasharray="5,5"
+                      markerEnd="url(#arrow)"
+                    />
+                  )}
                 </svg>
               )}
 
               {/* Ball */}
-              <motion.div
-                className="absolute w-5 h-5 bg-white rounded-full shadow-lg border-2 border-black/20"
-                animate={{
-                  left: `${currentPath[ballPosIndex].x}%`,
-                  top: `${currentPath[ballPosIndex].y}%`
-                }}
-                transition={{ type: 'tween', duration: 0.8, ease: 'easeInOut' }}
-                style={{ marginLeft: '-10px', marginTop: '-10px' }}
-              />
+              {whiteboardMode ? (
+                /* Bonvallet-style hand-drawn ball */
+                <motion.div
+                  className="absolute w-6 h-6 flex items-center justify-center"
+                  animate={{
+                    left: `${currentPath[ballPosIndex].x}%`,
+                    top: `${currentPath[ballPosIndex].y}%`
+                  }}
+                  transition={{ type: 'tween', duration: 0.8, ease: 'easeInOut' }}
+                  style={{ marginLeft: '-12px', marginTop: '-12px' }}
+                >
+                  <svg width="24" height="24" viewBox="0 0 24 24">
+                    <defs>
+                      <filter id="roughBall">
+                        <feTurbulence baseFrequency="0.1" numOctaves="2" result="noise"/>
+                        <feDisplacementMap in="SourceGraphic" in2="noise" scale="0.5"/>
+                      </filter>
+                    </defs>
+                    <circle
+                      cx="12"
+                      cy="12"
+                      r="9"
+                      fill="#1e293b"
+                      stroke="#1e293b"
+                      strokeWidth="2"
+                      filter="url(#roughBall)"
+                    />
+                    {/* Ball pattern */}
+                    <path
+                      d="M6,12 Q12,8 18,12 Q12,16 6,12"
+                      fill="none"
+                      stroke="#64748b"
+                      strokeWidth="1"
+                      filter="url(#roughBall)"
+                    />
+                  </svg>
+                </motion.div>
+              ) : (
+                /* Digital ball */
+                <motion.div
+                  className="absolute w-5 h-5 bg-white rounded-full shadow-lg border-2 border-black/20"
+                  animate={{
+                    left: `${currentPath[ballPosIndex].x}%`,
+                    top: `${currentPath[ballPosIndex].y}%`
+                  }}
+                  transition={{ type: 'tween', duration: 0.8, ease: 'easeInOut' }}
+                  style={{ marginLeft: '-10px', marginTop: '-10px' }}
+                />
+              )}
             </div>
           </div>
 
           {/* Drill info */}
-          <div className="bg-neutral-900/60 rounded-xl p-6">
-            <p className="text-neutral-200 mb-5 leading-relaxed">{currentDrill.description}</p>
+          <div className={`rounded-xl p-6 transition-colors ${
+            whiteboardMode
+              ? 'bg-slate-100 border-2 border-slate-300'
+              : 'bg-neutral-900/60'
+          }`}>
+            <p className={`mb-5 leading-relaxed ${
+              whiteboardMode ? 'text-slate-700' : 'text-neutral-200'
+            }`}>{currentDrill.description}</p>
 
             {/* Coaching cues */}
             <div className="space-y-3">
-              <h4 className="text-sm font-medium text-neutral-400 uppercase tracking-wide">Puntos Clave</h4>
+              <h4 className={`text-sm font-medium uppercase tracking-wide ${
+                whiteboardMode
+                  ? 'text-red-600 font-bold'
+                  : 'text-neutral-400'
+              }`}>
+                {whiteboardMode ? '¡PUNTOS CLAVE!' : 'Puntos Clave'}
+              </h4>
               {currentDrill.cues.map((cue, idx) => (
                 <div key={idx}>
                   <button
                     className={`w-full text-left px-4 py-3 rounded-lg transition-all ${
                       tooltip?.keyword === cue.keyword
-                        ? 'bg-blue-600 text-white shadow-lg'
+                        ? whiteboardMode
+                          ? 'bg-orange-100 text-orange-800 border-2 border-orange-400'
+                          : 'bg-blue-600 text-white shadow-lg'
+                        : whiteboardMode
+                        ? 'bg-white text-slate-700 border border-slate-300 hover:bg-slate-50'
                         : 'bg-neutral-800/80 text-neutral-200 hover:bg-neutral-700 hover:text-white'
                     }`}
                     onClick={() => setTooltip(tooltip?.keyword === cue.keyword ? null : cue)}
                   >
-                    <span className="font-medium">{cue.keyword}</span>
+                    <span className={`font-medium ${
+                      whiteboardMode ? 'text-slate-800' : ''
+                    }`}>{cue.keyword}</span>
                   </button>
                   {tooltip?.keyword === cue.keyword && (
-                    <div className="mt-2 p-4 bg-neutral-800/90 rounded-lg border-l-4 border-blue-500">
-                      <p className="text-sm text-neutral-300 leading-relaxed">{tooltip.description}</p>
+                    <div className={`mt-2 p-4 rounded-lg border-l-4 ${
+                      whiteboardMode
+                        ? 'bg-yellow-50 border-yellow-400 text-slate-700'
+                        : 'bg-neutral-800/90 border-blue-500 text-neutral-300'
+                    }`}>
+                      <p className="text-sm leading-relaxed">{tooltip.description}</p>
                     </div>
                   )}
                 </div>
@@ -695,34 +912,74 @@ export default function App() {
         {/* Sidebar */}
         <div className="w-72 space-y-5">
           {/* Stats */}
-          <div className="bg-neutral-900/80 rounded-xl p-5 text-center">
-            <div className="text-3xl font-bold text-white mb-1">{passes}</div>
-            <div className="text-sm text-neutral-400">pases completados</div>
+          <div className={`rounded-xl p-5 text-center transition-colors ${
+            whiteboardMode
+              ? 'bg-white border-2 border-slate-300 shadow-sm'
+              : 'bg-neutral-900/80'
+          }`}>
+            <div className={`text-3xl font-bold mb-1 ${
+              whiteboardMode ? 'text-red-600' : 'text-white'
+            }`}>{passes}</div>
+            <div className={`text-sm ${
+              whiteboardMode ? 'text-slate-600 font-medium' : 'text-neutral-400'
+            }`}>
+              {whiteboardMode ? 'PASES EJECUTADOS' : 'pases completados'}
+            </div>
           </div>
 
           {/* Team randomizer */}
-          <div className="bg-neutral-900/80 rounded-xl p-5">
-            <h3 className="font-medium mb-4 flex items-center gap-2 text-neutral-200">
-              <Users size={18} /> Equipos
+          <div className={`rounded-xl p-5 transition-colors ${
+            whiteboardMode
+              ? 'bg-slate-100 border-2 border-slate-300'
+              : 'bg-neutral-900/80'
+          }`}>
+            <h3 className={`font-medium mb-4 flex items-center gap-2 ${
+              whiteboardMode
+                ? 'text-slate-800 font-bold uppercase text-sm tracking-wide'
+                : 'text-neutral-200'
+            }`}>
+              <Users size={18} />
+              {whiteboardMode ? '¡FORMACIONES!' : 'Equipos'}
             </h3>
             <TeamRandomizer />
           </div>
 
           {/* Difficulty dice */}
-          <div className="bg-neutral-900/80 rounded-xl p-5">
-            <h3 className="font-medium mb-4 flex items-center gap-2 text-neutral-200">
-              <Dice6 size={18} /> Dificultad
+          <div className={`rounded-xl p-5 transition-colors ${
+            whiteboardMode
+              ? 'bg-slate-100 border-2 border-slate-300'
+              : 'bg-neutral-900/80'
+          }`}>
+            <h3 className={`font-medium mb-4 flex items-center gap-2 ${
+              whiteboardMode
+                ? 'text-slate-800 font-bold uppercase text-sm tracking-wide'
+                : 'text-neutral-200'
+            }`}>
+              <Dice6 size={18} />
+              {whiteboardMode ? '¡VARIANTES!' : 'Dificultad'}
             </h3>
             <button
               onClick={rollDice}
-              className="w-full bg-blue-600 hover:bg-blue-500 text-white py-3 rounded-lg transition-colors font-medium"
+              className={`w-full py-3 rounded-lg transition-colors font-medium ${
+                whiteboardMode
+                  ? 'bg-orange-500 hover:bg-orange-600 text-white border-2 border-orange-600'
+                  : 'bg-blue-600 hover:bg-blue-500 text-white'
+              }`}
             >
-              Tirar dado
+              {whiteboardMode ? '¡Sortear!' : 'Tirar dado'}
             </button>
             {diceResult && (
-              <div className="mt-4 p-4 bg-neutral-800/80 rounded-lg">
-                <p className="font-medium text-sm text-white">{diceResult.name}</p>
-                <p className="text-xs text-neutral-300 mt-1 leading-relaxed">{diceResult.description}</p>
+              <div className={`mt-4 p-4 rounded-lg ${
+                whiteboardMode
+                  ? 'bg-yellow-100 border-l-4 border-yellow-500 text-slate-800'
+                  : 'bg-neutral-800/80 text-white'
+              }`}>
+                <p className={`font-medium text-sm ${
+                  whiteboardMode ? 'text-yellow-800' : 'text-white'
+                }`}>{diceResult.name}</p>
+                <p className={`text-xs mt-1 leading-relaxed ${
+                  whiteboardMode ? 'text-slate-700' : 'text-neutral-300'
+                }`}>{diceResult.description}</p>
               </div>
             )}
           </div>
@@ -742,6 +999,20 @@ export default function App() {
 function TeamRandomizer() {
   const [input, setInput] = useState('');
   const [teams, setTeams] = useState(null);
+  const [whiteboardMode, setWhiteboardMode] = useState(false);
+
+  // Access parent component's whiteboard mode
+  React.useEffect(() => {
+    // This is a bit of a hack - in a real app we'd use context
+    const checkWhiteboardMode = () => {
+      const pizarraButton = document.querySelector('[title*="Pizarra"]');
+      setWhiteboardMode(pizarraButton?.className.includes('bg-orange'));
+    };
+
+    checkWhiteboardMode();
+    const interval = setInterval(checkWhiteboardMode, 100);
+    return () => clearInterval(interval);
+  }, []);
 
   const randomize = () => {
     const players = input
@@ -766,30 +1037,54 @@ function TeamRandomizer() {
         value={input}
         onChange={(e) => setInput(e.target.value)}
         placeholder="Nombres separados por coma..."
-        className="w-full bg-neutral-800 border border-neutral-700 rounded-lg p-3 text-sm mb-3 h-16 resize-none placeholder-neutral-500"
+        className={`w-full border rounded-lg p-3 text-sm mb-3 h-16 resize-none transition-colors ${
+          whiteboardMode
+            ? 'bg-white border-slate-300 text-slate-800 placeholder-slate-400'
+            : 'bg-neutral-800 border-neutral-700 text-white placeholder-neutral-500'
+        }`}
       />
       <button
         onClick={randomize}
-        className="w-full bg-green-600 hover:bg-green-500 text-white py-2 rounded-lg transition-colors text-sm"
+        className={`w-full py-2 rounded-lg transition-colors text-sm font-medium ${
+          whiteboardMode
+            ? 'bg-red-500 hover:bg-red-600 text-white border-2 border-red-600'
+            : 'bg-green-600 hover:bg-green-500 text-white'
+        }`}
       >
-        Generar equipos
+        {whiteboardMode ? '¡Formar equipos!' : 'Generar equipos'}
       </button>
       {teams && (
         <div className="mt-4 space-y-3">
           <div className="flex gap-3">
-            <div className="flex-1 bg-neutral-800 rounded-lg p-3">
-              <p className="font-medium text-xs text-neutral-400 mb-2">EQUIPO A</p>
+            <div className={`flex-1 rounded-lg p-3 ${
+              whiteboardMode ? 'bg-blue-100 border-2 border-blue-300' : 'bg-neutral-800'
+            }`}>
+              <p className={`font-medium text-xs mb-2 ${
+                whiteboardMode ? 'text-blue-800 font-bold' : 'text-neutral-400'
+              }`}>
+                {whiteboardMode ? '¡EQUIPO A!' : 'EQUIPO A'}
+              </p>
               <div className="space-y-1">
                 {teams.A.map((p, i) => (
-                  <div key={i} className="text-sm">{p}</div>
+                  <div key={i} className={`text-sm font-medium ${
+                    whiteboardMode ? 'text-blue-800' : 'text-white'
+                  }`}>{p}</div>
                 ))}
               </div>
             </div>
-            <div className="flex-1 bg-neutral-800 rounded-lg p-3">
-              <p className="font-medium text-xs text-neutral-400 mb-2">EQUIPO B</p>
+            <div className={`flex-1 rounded-lg p-3 ${
+              whiteboardMode ? 'bg-red-100 border-2 border-red-300' : 'bg-neutral-800'
+            }`}>
+              <p className={`font-medium text-xs mb-2 ${
+                whiteboardMode ? 'text-red-800 font-bold' : 'text-neutral-400'
+              }`}>
+                {whiteboardMode ? '¡EQUIPO B!' : 'EQUIPO B'}
+              </p>
               <div className="space-y-1">
                 {teams.B.map((p, i) => (
-                  <div key={i} className="text-sm">{p}</div>
+                  <div key={i} className={`text-sm font-medium ${
+                    whiteboardMode ? 'text-red-800' : 'text-white'
+                  }`}>{p}</div>
                 ))}
               </div>
             </div>
