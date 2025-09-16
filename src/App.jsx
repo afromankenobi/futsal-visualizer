@@ -274,20 +274,67 @@ export default function App() {
   const pathString = currentPath.map((pos) => `${pos.x},${pos.y}`).join(' ');
 
   return (
-    <div className="min-h-screen p-4 bg-neutral-950 text-white flex flex-col">
-      <h1 className="text-3xl font-bold mb-4">Sesión de baby fútbol</h1>
-      <div className="flex flex-col lg:flex-row gap-4 flex-1">
-        {/* Panel principal con el campo, controles y cues */}
-        <div className="lg:w-2/3 flex flex-col gap-4">
-          {/* Campo de juego */}
+    <div className="min-h-screen p-6 bg-neutral-950 text-white">
+      {/* Header */}
+      <div className="flex items-center justify-between mb-8">
+        <h1 className="text-2xl font-bold">Futsal Trainer</h1>
+        <div className="flex items-center gap-1">
+          <button
+            className="p-2 rounded-lg hover:bg-neutral-800 transition-colors"
+            onClick={() => setIsPlaying((p) => !p)}
+            title={isPlaying ? 'Pausar' : 'Reproducir'}
+          >
+            {isPlaying ? <Pause size={20} /> : <Play size={20} />}
+          </button>
+          <button
+            className={`p-2 rounded-lg transition-colors ${showArrows ? 'bg-neutral-700 text-white' : 'hover:bg-neutral-800'}`}
+            onClick={() => setShowArrows((s) => !s)}
+            title={showArrows ? 'Ocultar flechas' : 'Mostrar flechas'}
+          >
+            <ArrowRight size={20} />
+          </button>
+          <button
+            className={`p-2 rounded-lg transition-colors ${show3D ? 'bg-neutral-700 text-white' : 'hover:bg-neutral-800'}`}
+            onClick={() => setShow3D((s) => !s)}
+            title={show3D ? 'Vista 2D' : 'Vista 3D'}
+          >
+            <Boxes size={20} />
+          </button>
+        </div>
+      </div>
+
+      <div className="flex gap-6">
+        {/* Main field area */}
+        <div className="flex-1">
+          <div className="mb-4">
+            <select
+              className="bg-neutral-800 border border-neutral-700 rounded-lg px-4 py-2 text-lg font-medium w-full max-w-md"
+              value={currentDrillIndex}
+              onChange={(e) => {
+                const idx = Number(e.target.value);
+                setCurrentDrillIndex(idx);
+                setBallPosIndex(0);
+                setPasses(0);
+                setTooltip(null);
+              }}
+            >
+              {DRILLS.map((d, idx) => (
+                <option key={d.id} value={idx}>
+                  {d.name}
+                </option>
+              ))}
+            </select>
+          </div>
+
+          {/* Field */}
           <div
-            className="relative border border-neutral-700 rounded-xl overflow-hidden"
+            className="relative rounded-2xl overflow-hidden mb-4"
             style={{
               perspective: show3D ? '1000px' : undefined
             }}
           >
             <div
-              className={`relative w-full h-96 bg-green-700/70 rounded-xl`}
+              className="relative w-full h-96 bg-gradient-to-br from-green-600/80 to-green-700/80"
               style={
                 show3D
                   ? {
@@ -297,7 +344,12 @@ export default function App() {
                   : {}
               }
             >
-              {/* Flechas de pase */}
+              {/* Field lines */}
+              <div className="absolute inset-4 border-2 border-white/20 rounded"></div>
+              <div className="absolute left-1/2 top-4 bottom-4 w-0.5 bg-white/20"></div>
+              <div className="absolute left-1/2 top-1/2 w-16 h-16 border-2 border-white/20 rounded-full -translate-x-1/2 -translate-y-1/2"></div>
+
+              {/* Path arrows */}
               {showArrows && (
                 <svg
                   className="absolute inset-0 w-full h-full pointer-events-none"
@@ -313,133 +365,95 @@ export default function App() {
                       refY="2"
                       orient="auto"
                     >
-                      <path d="M0 0 L4 2 L0 4 z" fill="white" />
+                      <path d="M0 0 L4 2 L0 4 z" fill="rgba(255,255,255,0.8)" />
                     </marker>
                   </defs>
                   <polyline
                     points={pathString}
                     fill="none"
-                    stroke="white"
-                    strokeWidth="1.5"
+                    stroke="rgba(255,255,255,0.8)"
+                    strokeWidth="2"
+                    strokeDasharray="5,5"
                     markerEnd="url(#arrow)"
                   />
                 </svg>
               )}
-              {/* Balón */}
+
+              {/* Ball */}
               <motion.div
-                className="absolute w-4 h-4 bg-white rounded-full shadow-lg"
+                className="absolute w-5 h-5 bg-white rounded-full shadow-lg border-2 border-black/20"
                 animate={{
                   left: `${currentPath[ballPosIndex].x}%`,
                   top: `${currentPath[ballPosIndex].y}%`
                 }}
                 transition={{ type: 'spring', stiffness: 120, damping: 12 }}
+                style={{ marginLeft: '-10px', marginTop: '-10px' }}
               />
             </div>
           </div>
-          {/* Controles debajo del campo */}
-          <div className="flex flex-wrap gap-3">
-            <button
-              className="flex items-center gap-2 bg-neutral-800 px-3 py-2 rounded hover:bg-neutral-700"
-              onClick={() => setIsPlaying((p) => !p)}
-            >
-              {isPlaying ? <Pause size={16} /> : <Play size={16} />}
-              {isPlaying ? 'Pausar' : 'Play'}
-            </button>
-            <button
-              className="flex items-center gap-2 bg-neutral-800 px-3 py-2 rounded hover:bg-neutral-700"
-              onClick={() => setShowArrows((s) => !s)}
-            >
-              <ArrowRight size={16} /> {showArrows ? 'Ocultar flechas' : 'Mostrar flechas'}
-            </button>
-            <button
-              className="flex items-center gap-2 bg-neutral-800 px-3 py-2 rounded hover:bg-neutral-700"
-              onClick={() => setShow3D((s) => !s)}
-            >
-              <Boxes size={16} /> {show3D ? 'Modo 2D' : 'Modo 3D'}
-            </button>
-          </div>
-          {/* Información del drill y cues */}
-          <div>
-            <h3 className="text-xl font-semibold">{currentDrill.name}</h3>
-            <p className="text-sm text-neutral-400 mb-2">
-              {currentDrill.description}
-            </p>
-            <div className="flex flex-wrap gap-2 mb-2">
+
+          {/* Drill info */}
+          <div className="bg-neutral-900/50 rounded-xl p-4">
+            <p className="text-neutral-300 text-sm mb-3">{currentDrill.description}</p>
+
+            {/* Coaching cues */}
+            <div className="space-y-2">
               {currentDrill.cues.map((cue, idx) => (
-                <button
-                  key={idx}
-                  className="bg-neutral-800 px-2 py-1 rounded hover:bg-neutral-700 text-sm"
-                  onClick={() => setTooltip(tooltip && tooltip.keyword === cue.keyword ? null : cue)}
-                >
-                  {cue.keyword}
-                </button>
+                <div key={idx}>
+                  <button
+                    className={`text-left text-sm px-3 py-1.5 rounded-lg transition-colors ${
+                      tooltip?.keyword === cue.keyword
+                        ? 'bg-blue-600 text-white'
+                        : 'bg-neutral-800 text-neutral-300 hover:bg-neutral-700'
+                    }`}
+                    onClick={() => setTooltip(tooltip?.keyword === cue.keyword ? null : cue)}
+                  >
+                    <span className="font-medium text-white">{cue.keyword}</span>
+                  </button>
+                  {tooltip?.keyword === cue.keyword && (
+                    <div className="mt-1 p-3 bg-neutral-800 rounded-lg text-sm text-neutral-300">
+                      {tooltip.description}
+                    </div>
+                  )}
+                </div>
               ))}
             </div>
-            {tooltip && (
-              <div className="relative">
-                <div className="absolute z-10 bg-neutral-800 p-3 rounded shadow-xl w-64">
-                  <div className="flex justify-between items-center mb-1">
-                    <span className="font-semibold">{tooltip.keyword}</span>
-                    <button
-                      onClick={() => setTooltip(null)}
-                      aria-label="Cerrar tooltip"
-                    >
-                      <X size={14} />
-                    </button>
-                  </div>
-                  <p className="text-sm text-neutral-300">{tooltip.description}</p>
-                </div>
-              </div>
-            )}
           </div>
         </div>
-        {/* Panel lateral con selectores, randomizador y dado */}
-        <div className="lg:w-1/3 flex flex-col gap-4">
-          <div className="bg-neutral-800 p-4 rounded-xl">
-            <h2 className="text-lg font-semibold mb-2">Configuración de drill</h2>
-            <div className="mb-3">
-              <label className="block text-sm mb-1" htmlFor="drill-select">
-                Selecciona un drill
-              </label>
-              <select
-                id="drill-select"
-                className="w-full bg-neutral-700 p-2 rounded"
-                value={currentDrillIndex}
-                onChange={(e) => {
-                  const idx = Number(e.target.value);
-                  setCurrentDrillIndex(idx);
-                  setBallPosIndex(0);
-                  setPasses(0);
-                  setTooltip(null);
-                }}
-              >
-                {DRILLS.map((d, idx) => (
-                  <option key={d.id} value={idx}>
-                    {d.name}
-                  </option>
-                ))}
-              </select>
-            </div>
-            <div>
-              <p className="text-sm">Vuelta completas (pases): {passes}</p>
+
+        {/* Sidebar */}
+        <div className="w-80 space-y-4">
+          {/* Stats */}
+          <div className="bg-neutral-900 rounded-xl p-4">
+            <div className="text-center">
+              <div className="text-2xl font-bold text-white">{passes}</div>
+              <div className="text-sm text-neutral-400">pases completados</div>
             </div>
           </div>
-          <div className="bg-neutral-800 p-4 rounded-xl">
-            <h2 className="text-lg font-semibold mb-2">Randomizador de equipos</h2>
+
+          {/* Team randomizer */}
+          <div className="bg-neutral-900 rounded-xl p-4">
+            <h3 className="font-medium mb-3 flex items-center gap-2">
+              <Users size={16} /> Equipos
+            </h3>
             <TeamRandomizer />
           </div>
-          <div className="bg-neutral-800 p-4 rounded-xl">
-            <h2 className="text-lg font-semibold mb-2">Dado de dificultades</h2>
+
+          {/* Difficulty dice */}
+          <div className="bg-neutral-900 rounded-xl p-4">
+            <h3 className="font-medium mb-3 flex items-center gap-2">
+              <Dice6 size={16} /> Dificultad
+            </h3>
             <button
               onClick={rollDice}
-              className="flex items-center gap-2 bg-blue-600 hover:bg-blue-500 text-white px-3 py-2 rounded"
+              className="w-full bg-blue-600 hover:bg-blue-500 text-white px-3 py-2 rounded-lg transition-colors"
             >
-              <Dice6 size={16} /> Tirar dado
+              Tirar dado
             </button>
             {diceResult && (
-              <div className="mt-3">
-                <p className="font-semibold text-sm">{diceResult.name}</p>
-                <p className="text-xs text-neutral-300">{diceResult.description}</p>
+              <div className="mt-3 p-3 bg-neutral-800 rounded-lg">
+                <p className="font-medium text-sm">{diceResult.name}</p>
+                <p className="text-xs text-neutral-400 mt-1">{diceResult.description}</p>
               </div>
             )}
           </div>
@@ -482,32 +496,34 @@ function TeamRandomizer() {
       <textarea
         value={input}
         onChange={(e) => setInput(e.target.value)}
-        placeholder="Ingresa nombres separados por coma"
-        className="w-full bg-neutral-700 p-2 rounded text-sm mb-2 h-20 resize-none"
+        placeholder="Nombres separados por coma..."
+        className="w-full bg-neutral-800 border border-neutral-700 rounded-lg p-3 text-sm mb-3 h-16 resize-none placeholder-neutral-500"
       />
       <button
         onClick={randomize}
-        className="bg-green-600 hover:bg-green-500 text-white px-3 py-2 rounded"
+        className="w-full bg-green-600 hover:bg-green-500 text-white py-2 rounded-lg transition-colors text-sm"
       >
-        Randomizar
+        Generar equipos
       </button>
       {teams && (
-        <div className="mt-3 grid grid-cols-2 gap-4 text-sm">
-          <div>
-            <p className="font-semibold mb-1">Equipo A</p>
-            <ul className="list-disc list-inside">
-              {teams.A.map((p, i) => (
-                <li key={i}>{p}</li>
-              ))}
-            </ul>
-          </div>
-          <div>
-            <p className="font-semibold mb-1">Equipo B</p>
-            <ul className="list-disc list-inside">
-              {teams.B.map((p, i) => (
-                <li key={i}>{p}</li>
-              ))}
-            </ul>
+        <div className="mt-4 space-y-3">
+          <div className="flex gap-3">
+            <div className="flex-1 bg-neutral-800 rounded-lg p-3">
+              <p className="font-medium text-xs text-neutral-400 mb-2">EQUIPO A</p>
+              <div className="space-y-1">
+                {teams.A.map((p, i) => (
+                  <div key={i} className="text-sm">{p}</div>
+                ))}
+              </div>
+            </div>
+            <div className="flex-1 bg-neutral-800 rounded-lg p-3">
+              <p className="font-medium text-xs text-neutral-400 mb-2">EQUIPO B</p>
+              <div className="space-y-1">
+                {teams.B.map((p, i) => (
+                  <div key={i} className="text-sm">{p}</div>
+                ))}
+              </div>
+            </div>
           </div>
         </div>
       )}

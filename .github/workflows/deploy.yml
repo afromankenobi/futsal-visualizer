@@ -20,8 +20,12 @@ jobs:
           node-version: 20
       - run: npm install
       - run: npm run build
-            # Run end-to-end tests using Cypress
+
+      # Serve the built application and run tests against it
+      - run: npm run preview &
+      - run: sleep 5  # Give the server time to start
       - run: npm run test:e2e
+      - run: pkill -f "npm run preview" || true  # Clean up the preview server
 
       - uses: actions/upload-pages-artifact@v3
         with:
