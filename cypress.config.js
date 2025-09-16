@@ -6,6 +6,12 @@ export default defineConfig({
     // Cypress will prepend this base URL to cy.visit() paths. Adjust as needed.
     baseUrl: 'https://afromankenobi.github.io/futsal-visualizer/',
 
+    // Disable support file as this project doesn't use one
+    supportFile: false,
+
+    // Custom spec pattern to match test file in project root
+    specPattern: '*.cy.js',
+
     // Disable video recordings to reduce artifact size. Enable if you need videos
     // of failing test runs.
     video: false,
