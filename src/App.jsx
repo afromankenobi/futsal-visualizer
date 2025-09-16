@@ -58,10 +58,10 @@ const DRILLS = [
     ],
     // Define a square path for el balón to illustrate movimiento libre.
     path: [
-      { x: 10, y: 10 },
-      { x: 80, y: 10 },
-      { x: 80, y: 80 },
-      { x: 10, y: 80 }
+      { x: 20, y: 25 },
+      { x: 70, y: 25 },
+      { x: 70, y: 75 },
+      { x: 20, y: 75 }
     ]
   },
   {
@@ -89,9 +89,9 @@ const DRILLS = [
     ],
     // Y‑shaped path: base → centro → vértice → centro.
     path: [
-      { x: 10, y: 90 },
+      { x: 25, y: 80 },
       { x: 50, y: 50 },
-      { x: 90, y: 10 },
+      { x: 75, y: 20 },
       { x: 50, y: 50 }
     ]
   },
@@ -119,10 +119,10 @@ const DRILLS = [
     ],
     // Rectangular path around los cuatro vértices del rondo.
     path: [
-      { x: 10, y: 10 },
-      { x: 90, y: 10 },
-      { x: 90, y: 90 },
-      { x: 10, y: 90 }
+      { x: 25, y: 25 },
+      { x: 75, y: 25 },
+      { x: 75, y: 75 },
+      { x: 25, y: 75 }
     ]
   },
   {
@@ -150,12 +150,12 @@ const DRILLS = [
     ],
     // Hexagonal path para simular cambios de orientación.
     path: [
-      { x: 10, y: 50 },
-      { x: 30, y: 10 },
-      { x: 70, y: 10 },
-      { x: 90, y: 50 },
-      { x: 70, y: 90 },
-      { x: 30, y: 90 }
+      { x: 20, y: 50 },
+      { x: 35, y: 25 },
+      { x: 65, y: 25 },
+      { x: 80, y: 50 },
+      { x: 65, y: 75 },
+      { x: 35, y: 75 }
     ]
   },
   {
@@ -180,10 +180,10 @@ const DRILLS = [
     ],
     // Camino hacia la portería en diagonal.
     path: [
-      { x: 10, y: 80 },
-      { x: 40, y: 60 },
-      { x: 60, y: 60 },
-      { x: 90, y: 20 }
+      { x: 25, y: 75 },
+      { x: 45, y: 60 },
+      { x: 65, y: 45 },
+      { x: 80, y: 30 }
     ]
   }
 ];
@@ -594,13 +594,13 @@ export default function App() {
 
           {/* Field */}
           <div
-            className="relative rounded-2xl overflow-hidden mb-4"
+            className="relative rounded-2xl overflow-hidden mb-6"
             style={{
               perspective: show3D ? '1000px' : undefined
             }}
           >
             <div
-              className="relative w-full h-96 bg-gradient-to-br from-green-600/80 to-green-700/80"
+              className="relative w-full h-[28rem] bg-gradient-to-br from-green-600/90 to-green-700/90"
               style={
                 show3D
                   ? {
@@ -610,10 +610,14 @@ export default function App() {
                   : {}
               }
             >
-              {/* Field lines */}
-              <div className="absolute inset-4 border-2 border-white/20 rounded"></div>
-              <div className="absolute left-1/2 top-4 bottom-4 w-0.5 bg-white/20"></div>
-              <div className="absolute left-1/2 top-1/2 w-16 h-16 border-2 border-white/20 rounded-full -translate-x-1/2 -translate-y-1/2"></div>
+              {/* Field lines - more realistic futsal court */}
+              <div className="absolute inset-6 border-2 border-white/30 rounded-lg"></div>
+              <div className="absolute left-1/2 top-6 bottom-6 w-0.5 bg-white/30"></div>
+              <div className="absolute left-1/2 top-1/2 w-20 h-20 border-2 border-white/30 rounded-full -translate-x-1/2 -translate-y-1/2"></div>
+
+              {/* Goal areas */}
+              <div className="absolute left-6 top-1/2 w-16 h-24 border-2 border-white/25 rounded-r-lg -translate-y-1/2"></div>
+              <div className="absolute right-6 top-1/2 w-16 h-24 border-2 border-white/25 rounded-l-lg -translate-y-1/2"></div>
 
               {/* Path arrows */}
               {showArrows && (
@@ -652,33 +656,34 @@ export default function App() {
                   left: `${currentPath[ballPosIndex].x}%`,
                   top: `${currentPath[ballPosIndex].y}%`
                 }}
-                transition={{ type: 'spring', stiffness: 120, damping: 12 }}
+                transition={{ type: 'tween', duration: 0.8, ease: 'easeInOut' }}
                 style={{ marginLeft: '-10px', marginTop: '-10px' }}
               />
             </div>
           </div>
 
           {/* Drill info */}
-          <div className="bg-neutral-900/50 rounded-xl p-4">
-            <p className="text-neutral-300 text-sm mb-3">{currentDrill.description}</p>
+          <div className="bg-neutral-900/60 rounded-xl p-6">
+            <p className="text-neutral-200 mb-5 leading-relaxed">{currentDrill.description}</p>
 
             {/* Coaching cues */}
-            <div className="space-y-2">
+            <div className="space-y-3">
+              <h4 className="text-sm font-medium text-neutral-400 uppercase tracking-wide">Puntos Clave</h4>
               {currentDrill.cues.map((cue, idx) => (
                 <div key={idx}>
                   <button
-                    className={`text-left text-sm px-3 py-1.5 rounded-lg transition-colors ${
+                    className={`w-full text-left px-4 py-3 rounded-lg transition-all ${
                       tooltip?.keyword === cue.keyword
-                        ? 'bg-blue-600 text-white'
-                        : 'bg-neutral-800 text-neutral-300 hover:bg-neutral-700'
+                        ? 'bg-blue-600 text-white shadow-lg'
+                        : 'bg-neutral-800/80 text-neutral-200 hover:bg-neutral-700 hover:text-white'
                     }`}
                     onClick={() => setTooltip(tooltip?.keyword === cue.keyword ? null : cue)}
                   >
-                    <span className="font-medium text-white">{cue.keyword}</span>
+                    <span className="font-medium">{cue.keyword}</span>
                   </button>
                   {tooltip?.keyword === cue.keyword && (
-                    <div className="mt-1 p-3 bg-neutral-800 rounded-lg text-sm text-neutral-300">
-                      {tooltip.description}
+                    <div className="mt-2 p-4 bg-neutral-800/90 rounded-lg border-l-4 border-blue-500">
+                      <p className="text-sm text-neutral-300 leading-relaxed">{tooltip.description}</p>
                     </div>
                   )}
                 </div>
@@ -688,38 +693,36 @@ export default function App() {
         </div>
 
         {/* Sidebar */}
-        <div className="w-80 space-y-4">
+        <div className="w-72 space-y-5">
           {/* Stats */}
-          <div className="bg-neutral-900 rounded-xl p-4">
-            <div className="text-center">
-              <div className="text-2xl font-bold text-white">{passes}</div>
-              <div className="text-sm text-neutral-400">pases completados</div>
-            </div>
+          <div className="bg-neutral-900/80 rounded-xl p-5 text-center">
+            <div className="text-3xl font-bold text-white mb-1">{passes}</div>
+            <div className="text-sm text-neutral-400">pases completados</div>
           </div>
 
           {/* Team randomizer */}
-          <div className="bg-neutral-900 rounded-xl p-4">
-            <h3 className="font-medium mb-3 flex items-center gap-2">
-              <Users size={16} /> Equipos
+          <div className="bg-neutral-900/80 rounded-xl p-5">
+            <h3 className="font-medium mb-4 flex items-center gap-2 text-neutral-200">
+              <Users size={18} /> Equipos
             </h3>
             <TeamRandomizer />
           </div>
 
           {/* Difficulty dice */}
-          <div className="bg-neutral-900 rounded-xl p-4">
-            <h3 className="font-medium mb-3 flex items-center gap-2">
-              <Dice6 size={16} /> Dificultad
+          <div className="bg-neutral-900/80 rounded-xl p-5">
+            <h3 className="font-medium mb-4 flex items-center gap-2 text-neutral-200">
+              <Dice6 size={18} /> Dificultad
             </h3>
             <button
               onClick={rollDice}
-              className="w-full bg-blue-600 hover:bg-blue-500 text-white px-3 py-2 rounded-lg transition-colors"
+              className="w-full bg-blue-600 hover:bg-blue-500 text-white py-3 rounded-lg transition-colors font-medium"
             >
               Tirar dado
             </button>
             {diceResult && (
-              <div className="mt-3 p-3 bg-neutral-800 rounded-lg">
-                <p className="font-medium text-sm">{diceResult.name}</p>
-                <p className="text-xs text-neutral-400 mt-1">{diceResult.description}</p>
+              <div className="mt-4 p-4 bg-neutral-800/80 rounded-lg">
+                <p className="font-medium text-sm text-white">{diceResult.name}</p>
+                <p className="text-xs text-neutral-300 mt-1 leading-relaxed">{diceResult.description}</p>
               </div>
             )}
           </div>
