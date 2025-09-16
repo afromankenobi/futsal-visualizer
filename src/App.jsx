@@ -29,6 +29,19 @@ import {
  * lucide-react for crisp icons.
  */
 
+// Exercise categories for better organization
+const EXERCISE_CATEGORIES = {
+  'Calentamiento': 'Ejercicios para empezar bien el entrenamiento',
+  'Técnica Básica': 'Ejercicios para mejorar tus habilidades con el balón',
+  'Pases y Recepción': 'Aprende a pasar y recibir el balón como un profesional',
+  'Rondos y Posesión': 'Mantén el balón en tu equipo y juega en espacios pequeños',
+  'Finalización': 'Aprende a marcar goles con precisión',
+  'Portero': 'Ejercicios especiales para porteros',
+  'Defensa': 'Aprende a defender y recuperar el balón',
+  'Jugadas Ensayadas': 'Movimientos especiales para situaciones del partido',
+  'Físico con Balón': 'Combina ejercicio físico con técnica'
+};
+
 // Data describing each training drill. Each drill includes a name,
 // description, a sequence of coaching cues with definitions and a
 // simplified path describing how the balón should move. The path is
@@ -36,10 +49,12 @@ import {
 const DRILLS = [
   {
     id: 'activation',
+    category: 'Calentamiento',
     name: 'Activación y coordinación',
     duration: 10,
     description:
-      'Juego de ladrón de colas con balones: cada uno conduce su balón protegiéndolo y tratando de quitar la “cola” del compañero.',
+      'Juego de ladrón de colas con balones: cada uno conduce su balón protegiéndolo y tratando de quitar la "cola" del compañero.',
+    goal: '¡Calienta tus músculos mientras proteges tu balón! Muévete rápido sin chocar con tus compañeros y mantén el control del balón siempre cerca de ti.',
     cues: [
       {
         keyword: 'Postura atlética',
@@ -97,10 +112,12 @@ const DRILLS = [
   },
   {
     id: 'pases',
+    category: 'Pases y Recepción',
     name: 'Técnica de pase',
     duration: 15,
     description:
       'Secuencia de pases en parejas y patrón en Y. Control orientado, pie de apoyo al objetivo.',
+    goal: 'Aprende a hacer pases precisos en forma de triángulo. ¡Haz que el balón llegue exactamente donde quieres!',
     cues: [
       {
         keyword: 'Perfil semiabierto',
@@ -150,10 +167,12 @@ const DRILLS = [
   },
   {
     id: 'rondo',
+    category: 'Rondos y Posesión',
     name: 'Rondo 4v2',
     duration: 15,
     description:
       'Juego de posesión en cuadrado. Trabaja triángulos, tercer hombre y limitación de toques.',
+    goal: '¡Mantén el balón alejado de los defensores! Pasa rápido y muévete para recibir el balón de nuevo.',
     cues: [
       {
         keyword: 'Ángulos de apoyo',
@@ -214,10 +233,12 @@ const DRILLS = [
   },
   {
     id: 'posicion',
+    category: 'Rondos y Posesión',
     name: 'Juego de posición 4v4+3',
     duration: 20,
     description:
       'Posicionamiento: amplitud, profundidad, doble línea de pase y cambio de orientación.',
+    goal: 'Aprende a moverte por toda la cancha para ayudar a tu equipo. ¡Ocupa los espacios libres y siempre ofrece una opción de pase!',
     cues: [
       {
         keyword: 'Ancho‑profundo‑corto',
@@ -315,10 +336,12 @@ const DRILLS = [
   },
   {
     id: 'finalizacion',
+    category: 'Finalización',
     name: 'Finalización y precisión',
     duration: 20,
     description:
       'Pase de apoyo, pared y tiro a las esquinas. Tiros a dianas para ganar más puntos.',
+    goal: '¡Marca goles como un profesional! Practica apuntar a las esquinas de la portería para que el portero no pueda pararlos.',
     cues: [
       {
         keyword: 'Paso lateral final',
@@ -377,9 +400,11 @@ const DRILLS = [
   },
   {
     id: 'pase_pared',
+    category: 'Pases y Recepción',
     name: 'Pase y pared',
     duration: 12,
     description: 'Jugador 1 pasa al Jugador 2 (pared), quien devuelve a un toque mientras Jugador 1 se mueve.',
+    goal: 'Aprende a usar a tu compañero como una "pared". ¡Pasa, corre y recibe el balón de vuelta para superar a los defensores!',
     cues: [
       {
         keyword: 'Pase al pie',
@@ -421,9 +446,11 @@ const DRILLS = [
   },
   {
     id: 'conduccion_basica',
+    category: 'Técnica Básica',
     name: 'Conducción básica',
     duration: 8,
     description: 'Conducción libre con ambos pies, cambios de dirección y paradas.',
+    goal: 'Domina el balón con los dos pies. ¡Practica llevar el balón contigo mientras corres y cambias de dirección!',
     cues: [
       {
         keyword: 'Contacto suave',
@@ -455,9 +482,11 @@ const DRILLS = [
   },
   {
     id: 'triangulacion',
+    category: 'Rondos y Posesión',
     name: 'Triangulación 3v1',
     duration: 15,
     description: 'Tres jugadores mantienen posesión contra uno, trabajando triángulos de pase.',
+    goal: '¡Forma triángulos con tus compañeros! Siempre ten dos opciones para pasar el balón y no dejes que te lo quiten.',
     cues: [
       {
         keyword: 'Triángulos',
@@ -507,9 +536,11 @@ const DRILLS = [
   },
   {
     id: 'portero_basico',
+    category: 'Portero',
     name: 'Portero: Técnica básica',
     duration: 15,
     description: 'Posición básica, blocaje y caídas. Enseñar la postura correcta del portero y movimientos fundamentales.',
+    goal: '¡Aprende a ser un portero increíble! Practica como agarrar el balón de forma segura y moverte rápidamente por la portería.',
     cues: [
       {
         keyword: 'Posición de base',
@@ -551,9 +582,11 @@ const DRILLS = [
   },
   {
     id: 'portero_reflejos',
+    category: 'Portero',
     name: 'Portero: Reflejos y agilidad',
     duration: 12,
     description: 'Ejercicio de tiros rápidos desde corta distancia para mejorar tiempo de reacción y coordinación.',
+    goal: '¡Conviértete en un portero súper rápido! Practica reaccionar velozmente a los tiros y saltar hacia el balón.',
     cues: [
       {
         keyword: 'Mirada en el balón',
@@ -599,9 +632,11 @@ const DRILLS = [
   },
   {
     id: 'defensa_marcaje',
+    category: 'Defensa',
     name: 'Defensa: Marcaje y cobertura',
     duration: 18,
     description: 'Trabajo de marcaje individual y ayudas defensivas entre compañeros.',
+    goal: 'Aprende a defender como un profesional. ¡Manténte cerca del rival sin dejar que se escape y ayuda a tus compañeros!',
     cues: [
       {
         keyword: 'Distancia correcta',
@@ -651,9 +686,11 @@ const DRILLS = [
   },
   {
     id: 'medio_distribucion',
+    category: 'Pases y Recepción',
     name: 'Mediocampo: Distribución',
     duration: 20,
     description: 'Ejercicio de pase y recepción desde el centro del campo hacia todas las posiciones.',
+    goal: '¡Sé el cerebro del equipo! Practica mirar a todos lados antes de recibir el balón y enviarlo a donde más se necesite.',
     cues: [
       {
         keyword: 'Visión 360°',
@@ -723,9 +760,11 @@ const DRILLS = [
   },
   {
     id: 'delantero_desmarque',
+    category: 'Finalización',
     name: 'Delantero: Desmarque y definición',
     duration: 15,
     description: 'Movimientos de desmarque para recibir en área y finalizar con eficacia.',
+    goal: '¡Conviértete en un goleador! Aprende a escaparte del defensor en el momento perfecto para recibir y marcar.',
     cues: [
       {
         keyword: 'Timing del desmarque',
@@ -775,9 +814,11 @@ const DRILLS = [
   },
   {
     id: 'regates_1v1',
+    category: 'Técnica Básica',
     name: 'Regates 1v1',
     duration: 15,
     description: 'Situaciones de uno contra uno con diferentes tipos de regate para superar al defensor.',
+    goal: '¡Aprende trucos geniales para superar defensores! Practica fintar y cambiar de dirección para dejar atrás a tu rival.',
     cues: [
       {
         keyword: 'Cambio de ritmo',
@@ -819,9 +860,11 @@ const DRILLS = [
   },
   {
     id: 'saque_esquina',
+    category: 'Jugadas Ensayadas',
     name: 'Saque de esquina',
     duration: 12,
     description: 'Jugadas ensayadas desde corner: pase corto, centro directo y variaciones.',
+    goal: '¡Aprovecha los corners para crear peligro! Aprende jugadas especiales para sorprender al equipo rival desde la esquina.',
     cues: [
       {
         keyword: 'Señal previa',
@@ -871,9 +914,11 @@ const DRILLS = [
   },
   {
     id: 'contraataque',
+    category: 'Rondos y Posesión',
     name: 'Contraataque rápido',
     duration: 18,
     description: 'Transición rápida de defensa a ataque aprovechando los espacios libres.',
+    goal: '¡Conviértete en un rayo! Cuando recuperes el balón, aprende a atacar rápidamente antes de que el rival se organice.',
     cues: [
       {
         keyword: 'Primer pase seguro',
@@ -923,9 +968,11 @@ const DRILLS = [
   },
   {
     id: 'juego_2v2',
+    category: 'Rondos y Posesión',
     name: 'Juego 2v2 + porteros',
     duration: 20,
     description: 'Situaciones reducidas 2 contra 2 con porteros para trabajar superioridad numérica.',
+    goal: '¡Trabaja en equipo perfecto! Con tu compañero, intentá superar a los dos defensores y marcar gol.',
     cues: [
       {
         keyword: 'Apoyo constante',
@@ -979,9 +1026,11 @@ const DRILLS = [
   },
   {
     id: 'circuito_fisico',
+    category: 'Físico con Balón',
     name: 'Circuito físico con balón',
     duration: 15,
     description: 'Ejercicio físico combinado con técnica: sprints, cambios de dirección y control.',
+    goal: '¡Ponte fuerte mientras juegas! Corre rápido con el balón y contrólalo incluso cuando estés cansado.',
     cues: [
       {
         keyword: 'Intensidad alta',
@@ -1015,9 +1064,11 @@ const DRILLS = [
   },
   {
     id: 'tiro_libre',
+    category: 'Jugadas Ensayadas',
     name: 'Tiro libre directo',
     duration: 10,
     description: 'Ejecución de tiros libres directos con diferentes opciones: disparo, pase y combinaciones.',
+    goal: '¡Conviértete en un especialista! Aprende a hacer goles desde tiros libres apuntando a las esquinas de la portería.',
     cues: [
       {
         keyword: 'Precisión sobre potencia',
@@ -1055,9 +1106,11 @@ const DRILLS = [
   },
   {
     id: 'salida_balón',
+    category: 'Pases y Recepción',
     name: 'Salida de balón desde atrás',
     duration: 16,
     description: 'Construcción de jugada desde la defensa evitando la presión rival.',
+    goal: '¡Aprende a salir jugando desde atrás! Practica pasar el balón con calma desde tu área hasta el ataque sin perderlo.',
     cues: [
       {
         keyword: 'Paciencia',
@@ -1124,9 +1177,11 @@ const DRILLS = [
   },
   {
     id: 'pivot_apoyo',
+    category: 'Finalización',
     name: 'Juego con pívot',
     duration: 18,
     description: 'El pívot recibe de espaldas, protege y habilita a compañeros que llegan desde atrás.',
+    goal: '¡Sé como una pared humana! Aprende a recibir de espaldas y ayudar a tus compañeros a crear jugadas peligrosas.',
     cues: [
       {
         keyword: 'Recepción de espaldas',
@@ -1176,9 +1231,11 @@ const DRILLS = [
   },
   {
     id: 'rotaciones',
+    category: 'Rondos y Posesión',
     name: 'Rotaciones posicionales',
     duration: 20,
     description: 'Intercambio de posiciones entre jugadores para generar superioridad numérica.',
+    goal: '¡Mueve como un equipo perfecto! Aprende a cambiar de posición con tus compañeros para confundir a los rivales.',
     cues: [
       {
         keyword: 'Timing perfecto',
@@ -1667,10 +1724,16 @@ export default function App() {
                 setTooltip(null);
               }}
             >
-              {DRILLS.map((d, idx) => (
-                <option key={d.id} value={idx}>
-                  {d.name}
-                </option>
+              {Object.entries(EXERCISE_CATEGORIES).map(([category, description]) => (
+                <optgroup key={category} label={`${category} - ${description}`}>
+                  {DRILLS.map((drill, idx) =>
+                    drill.category === category && (
+                      <option key={drill.id} value={idx}>
+                        {drill.name} ({drill.duration} min)
+                      </option>
+                    )
+                  )}
+                </optgroup>
               ))}
             </select>
           </div>
@@ -1957,9 +2020,25 @@ export default function App() {
               ? 'bg-slate-100 border-2 border-slate-300'
               : 'bg-neutral-900/60'
           }`}>
-            <p className={`mb-5 leading-relaxed ${
+            <p className={`mb-4 leading-relaxed ${
               whiteboardMode ? 'text-slate-700' : 'text-neutral-200'
             }`}>{currentDrill.description}</p>
+
+            {/* Exercise Goal for Young Players */}
+            {currentDrill.goal && (
+              <div className={`mb-5 p-4 rounded-lg border-l-4 ${
+                whiteboardMode
+                  ? 'bg-blue-50 border-blue-500 text-blue-800'
+                  : 'bg-blue-900/30 border-blue-400 text-blue-200'
+              }`}>
+                <h4 className={`font-bold mb-2 text-sm uppercase tracking-wide ${
+                  whiteboardMode ? 'text-blue-800' : 'text-blue-300'
+                }`}>
+                  {whiteboardMode ? '🎯 ¡TU OBJETIVO!' : '🎯 Tu Objetivo'}
+                </h4>
+                <p className="leading-relaxed">{currentDrill.goal}</p>
+              </div>
+            )}
 
             {/* Coaching cues */}
             <div className="space-y-3">
