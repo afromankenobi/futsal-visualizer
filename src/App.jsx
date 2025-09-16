@@ -772,6 +772,459 @@ const DRILLS = [
         { x: 85, y: 50, team: 'B', number: 'GK' }
       ]
     ]
+  },
+  {
+    id: 'regates_1v1',
+    name: 'Regates 1v1',
+    duration: 15,
+    description: 'Situaciones de uno contra uno con diferentes tipos de regate para superar al defensor.',
+    cues: [
+      {
+        keyword: 'Cambio de ritmo',
+        description: 'Acelera súbitamente después del regate para dejar atrás al defensor.'
+      },
+      {
+        keyword: 'Protección del balón',
+        description: 'Usa tu cuerpo para proteger el balón del defensor durante el regate.'
+      },
+      {
+        keyword: 'Fintar con el cuerpo',
+        description: 'Usa tu cuerpo para engañar al defensor sobre la dirección del regate.'
+      }
+    ],
+    path: [
+      { x: 20, y: 50 },  // Atacante con balón
+      { x: 40, y: 45 },  // Aproximación al defensor
+      { x: 45, y: 35 },  // Regate hacia un lado
+      { x: 70, y: 30 }   // Superación del defensor
+    ],
+    players: [
+      [
+        { x: 20, y: 50, team: 'A', number: 'A' },
+        { x: 50, y: 40, team: 'B', number: 'D' }
+      ],
+      [
+        { x: 35, y: 48, team: 'A', number: 'A' },
+        { x: 50, y: 40, team: 'B', number: 'D' }
+      ],
+      [
+        { x: 50, y: 35, team: 'A', number: 'A' },
+        { x: 48, y: 38, team: 'B', number: 'D' }
+      ],
+      [
+        { x: 70, y: 30, team: 'A', number: 'A' },
+        { x: 45, y: 35, team: 'B', number: 'D' }
+      ]
+    ]
+  },
+  {
+    id: 'saque_esquina',
+    name: 'Saque de esquina',
+    duration: 12,
+    description: 'Jugadas ensayadas desde corner: pase corto, centro directo y variaciones.',
+    cues: [
+      {
+        keyword: 'Señal previa',
+        description: 'Define señales para que todos sepan qué jugada vas a ejecutar.'
+      },
+      {
+        keyword: 'Timing de carrera',
+        description: 'Los jugadores deben iniciar su movimiento al mismo tiempo que el lanzador.'
+      },
+      {
+        keyword: 'Primer y segundo palo',
+        description: 'Coloca jugadores en primer palo (cerca) y segundo palo (lejos) del área.'
+      }
+    ],
+    path: [
+      { x: 15, y: 15 },  // Córner
+      { x: 25, y: 25 },  // Pase corto
+      { x: 50, y: 40 },  // Centro al área
+      { x: 85, y: 45 }   // Remate
+    ],
+    players: [
+      [
+        { x: 15, y: 15, team: 'A', number: '7' },
+        { x: 30, y: 30, team: 'A', number: '10' },
+        { x: 60, y: 45, team: 'A', number: '9' },
+        { x: 80, y: 50, team: 'B', number: 'GK' }
+      ],
+      [
+        { x: 15, y: 15, team: 'A', number: '7' },
+        { x: 25, y: 25, team: 'A', number: '10' },
+        { x: 55, y: 40, team: 'A', number: '9' },
+        { x: 85, y: 50, team: 'B', number: 'GK' }
+      ],
+      [
+        { x: 18, y: 18, team: 'A', number: '7' },
+        { x: 30, y: 30, team: 'A', number: '10' },
+        { x: 50, y: 35, team: 'A', number: '9' },
+        { x: 85, y: 50, team: 'B', number: 'GK' }
+      ],
+      [
+        { x: 20, y: 20, team: 'A', number: '7' },
+        { x: 35, y: 35, team: 'A', number: '10' },
+        { x: 80, y: 40, team: 'A', number: '9' },
+        { x: 85, y: 45, team: 'B', number: 'GK' }
+      ]
+    ]
+  },
+  {
+    id: 'contraataque',
+    name: 'Contraataque rápido',
+    duration: 18,
+    description: 'Transición rápida de defensa a ataque aprovechando los espacios libres.',
+    cues: [
+      {
+        keyword: 'Primer pase seguro',
+        description: 'El primer pase debe ser seguro y hacia un compañero en buena posición.'
+      },
+      {
+        keyword: 'Velocidad de ejecución',
+        description: 'Juega rápido antes de que la defensa rival se reorganice.'
+      },
+      {
+        keyword: 'Amplitud y profundidad',
+        description: 'Busca los espacios amplios y profundos que ha dejado el rival.'
+      }
+    ],
+    path: [
+      { x: 85, y: 50 },  // Recuperación por portero
+      { x: 65, y: 40 },  // Pase a defensa
+      { x: 40, y: 25 },  // Pase largo a medio
+      { x: 15, y: 35 }   // Asistencia a delantero
+    ],
+    players: [
+      [
+        { x: 85, y: 50, team: 'A', number: 'GK' },
+        { x: 65, y: 45, team: 'A', number: '4' },
+        { x: 45, y: 30, team: 'A', number: '8' },
+        { x: 20, y: 40, team: 'A', number: '9' }
+      ],
+      [
+        { x: 85, y: 50, team: 'A', number: 'GK' },
+        { x: 65, y: 40, team: 'A', number: '4' },
+        { x: 40, y: 25, team: 'A', number: '8' },
+        { x: 15, y: 35, team: 'A', number: '9' }
+      ],
+      [
+        { x: 85, y: 50, team: 'A', number: 'GK' },
+        { x: 60, y: 35, team: 'A', number: '4' },
+        { x: 35, y: 20, team: 'A', number: '8' },
+        { x: 10, y: 30, team: 'A', number: '9' }
+      ],
+      [
+        { x: 85, y: 50, team: 'A', number: 'GK' },
+        { x: 55, y: 30, team: 'A', number: '4' },
+        { x: 30, y: 15, team: 'A', number: '8' },
+        { x: 15, y: 35, team: 'A', number: '9' }
+      ]
+    ]
+  },
+  {
+    id: 'juego_2v2',
+    name: 'Juego 2v2 + porteros',
+    duration: 20,
+    description: 'Situaciones reducidas 2 contra 2 con porteros para trabajar superioridad numérica.',
+    cues: [
+      {
+        keyword: 'Apoyo constante',
+        description: 'El compañero sin balón debe ofrecer siempre una opción de pase.'
+      },
+      {
+        keyword: 'Cambio de posiciones',
+        description: 'Intercambia posiciones con tu compañero para confundir a los defensores.'
+      },
+      {
+        keyword: 'Finalización rápida',
+        description: 'Cuando tengas oportunidad de tiro, no dudes en finalizar.'
+      }
+    ],
+    path: [
+      { x: 30, y: 60 },  // Jugador 1 con balón
+      { x: 45, y: 45 },  // Pase al compañero
+      { x: 60, y: 30 },  // Avance hacia área
+      { x: 80, y: 45 }   // Tiro a portería
+    ],
+    players: [
+      [
+        { x: 30, y: 60, team: 'A', number: 'A1' },
+        { x: 50, y: 50, team: 'A', number: 'A2' },
+        { x: 40, y: 40, team: 'B', number: 'D1' },
+        { x: 60, y: 35, team: 'B', number: 'D2' },
+        { x: 85, y: 50, team: 'B', number: 'GK' }
+      ],
+      [
+        { x: 35, y: 55, team: 'A', number: 'A1' },
+        { x: 45, y: 45, team: 'A', number: 'A2' },
+        { x: 45, y: 45, team: 'B', number: 'D1' },
+        { x: 55, y: 40, team: 'B', number: 'D2' },
+        { x: 85, y: 50, team: 'B', number: 'GK' }
+      ],
+      [
+        { x: 40, y: 50, team: 'A', number: 'A1' },
+        { x: 60, y: 30, team: 'A', number: 'A2' },
+        { x: 50, y: 50, team: 'B', number: 'D1' },
+        { x: 70, y: 35, team: 'B', number: 'D2' },
+        { x: 85, y: 50, team: 'B', number: 'GK' }
+      ],
+      [
+        { x: 45, y: 45, team: 'A', number: 'A1' },
+        { x: 75, y: 40, team: 'A', number: 'A2' },
+        { x: 55, y: 55, team: 'B', number: 'D1' },
+        { x: 75, y: 45, team: 'B', number: 'D2' },
+        { x: 85, y: 50, team: 'B', number: 'GK' }
+      ]
+    ]
+  },
+  {
+    id: 'circuito_fisico',
+    name: 'Circuito físico con balón',
+    duration: 15,
+    description: 'Ejercicio físico combinado con técnica: sprints, cambios de dirección y control.',
+    cues: [
+      {
+        keyword: 'Intensidad alta',
+        description: 'Mantén alta intensidad durante todo el ejercicio para mejorar resistencia.'
+      },
+      {
+        keyword: 'Control en velocidad',
+        description: 'Controla el balón correctamente incluso a alta velocidad.'
+      },
+      {
+        keyword: 'Recuperación activa',
+        description: 'Mantente en movimiento durante las pausas, no te detengas completamente.'
+      }
+    ],
+    path: [
+      { x: 15, y: 15 },  // Inicio sprint
+      { x: 45, y: 15 },  // Primera estación
+      { x: 45, y: 45 },  // Cambio de dirección
+      { x: 75, y: 45 },  // Sprint lateral
+      { x: 75, y: 75 },  // Cambio dirección
+      { x: 15, y: 75 }   // Vuelta al inicio
+    ],
+    players: [
+      [{ x: 15, y: 15, team: 'A', number: '1' }],
+      [{ x: 30, y: 15, team: 'A', number: '1' }],
+      [{ x: 45, y: 30, team: 'A', number: '1' }],
+      [{ x: 60, y: 45, team: 'A', number: '1' }],
+      [{ x: 75, y: 60, team: 'A', number: '1' }],
+      [{ x: 45, y: 75, team: 'A', number: '1' }]
+    ]
+  },
+  {
+    id: 'tiro_libre',
+    name: 'Tiro libre directo',
+    duration: 10,
+    description: 'Ejecución de tiros libres directos con diferentes opciones: disparo, pase y combinaciones.',
+    cues: [
+      {
+        keyword: 'Precisión sobre potencia',
+        description: 'Prioriza la colocación del balón sobre la fuerza del disparo.'
+      },
+      {
+        keyword: 'Posición del portero',
+        description: 'Analiza la posición del portero antes de decidir hacia dónde tirar.'
+      },
+      {
+        keyword: 'Concentración máxima',
+        description: 'Mantén la calma y concéntrate totalmente en la ejecución.'
+      }
+    ],
+    path: [
+      { x: 35, y: 50 },  // Posición del tiro libre
+      { x: 85, y: 35 }   // Dirección del tiro
+    ],
+    players: [
+      [
+        { x: 35, y: 50, team: 'A', number: '10' },
+        { x: 30, y: 55, team: 'A', number: '7' },
+        { x: 85, y: 50, team: 'B', number: 'GK' },
+        { x: 45, y: 50, team: 'B', number: 'D1' },
+        { x: 50, y: 50, team: 'B', number: 'D2' }
+      ],
+      [
+        { x: 35, y: 50, team: 'A', number: '10' },
+        { x: 30, y: 55, team: 'A', number: '7' },
+        { x: 85, y: 45, team: 'B', number: 'GK' },
+        { x: 45, y: 50, team: 'B', number: 'D1' },
+        { x: 50, y: 50, team: 'B', number: 'D2' }
+      ]
+    ]
+  },
+  {
+    id: 'salida_balón',
+    name: 'Salida de balón desde atrás',
+    duration: 16,
+    description: 'Construcción de jugada desde la defensa evitando la presión rival.',
+    cues: [
+      {
+        keyword: 'Paciencia',
+        description: 'No te apresures, busca el momento adecuado para avanzar el balón.'
+      },
+      {
+        keyword: 'Líneas de pase',
+        description: 'Busca siempre tener dos opciones de pase disponibles.'
+      },
+      {
+        keyword: 'Cambio de orientación',
+        description: 'Usa todo el ancho del campo para desorganizar la presión rival.'
+      }
+    ],
+    path: [
+      { x: 85, y: 50 },  // Portero inicia
+      { x: 70, y: 60 },  // Pase a lateral
+      { x: 50, y: 75 },  // Cambio de banda
+      { x: 30, y: 60 },  // Pase a medio
+      { x: 15, y: 40 }   // Salida hacia ataque
+    ],
+    players: [
+      [
+        { x: 85, y: 50, team: 'A', number: 'GK' },
+        { x: 70, y: 65, team: 'A', number: '2' },
+        { x: 50, y: 70, team: 'A', number: '3' },
+        { x: 30, y: 55, team: 'A', number: '6' },
+        { x: 60, y: 40, team: 'B', number: 'P1' },
+        { x: 40, y: 50, team: 'B', number: 'P2' }
+      ],
+      [
+        { x: 85, y: 50, team: 'A', number: 'GK' },
+        { x: 70, y: 60, team: 'A', number: '2' },
+        { x: 50, y: 75, team: 'A', number: '3' },
+        { x: 30, y: 60, team: 'A', number: '6' },
+        { x: 55, y: 45, team: 'B', number: 'P1' },
+        { x: 35, y: 55, team: 'B', number: 'P2' }
+      ],
+      [
+        { x: 85, y: 50, team: 'A', number: 'GK' },
+        { x: 65, y: 55, team: 'A', number: '2' },
+        { x: 50, y: 75, team: 'A', number: '3' },
+        { x: 30, y: 60, team: 'A', number: '6' },
+        { x: 50, y: 50, team: 'B', number: 'P1' },
+        { x: 30, y: 50, team: 'B', number: 'P2' }
+      ],
+      [
+        { x: 85, y: 50, team: 'A', number: 'GK' },
+        { x: 60, y: 50, team: 'A', number: '2' },
+        { x: 45, y: 70, team: 'A', number: '3' },
+        { x: 20, y: 45, team: 'A', number: '6' },
+        { x: 45, y: 55, team: 'B', number: 'P1' },
+        { x: 25, y: 55, team: 'B', number: 'P2' }
+      ],
+      [
+        { x: 85, y: 50, team: 'A', number: 'GK' },
+        { x: 55, y: 45, team: 'A', number: '2' },
+        { x: 40, y: 65, team: 'A', number: '3' },
+        { x: 15, y: 40, team: 'A', number: '6' },
+        { x: 40, y: 60, team: 'B', number: 'P1' },
+        { x: 20, y: 60, team: 'B', number: 'P2' }
+      ]
+    ]
+  },
+  {
+    id: 'pivot_apoyo',
+    name: 'Juego con pívot',
+    duration: 18,
+    description: 'El pívot recibe de espaldas, protege y habilita a compañeros que llegan desde atrás.',
+    cues: [
+      {
+        keyword: 'Recepción de espaldas',
+        description: 'Recibe el balón protegiendo con el cuerpo entre el rival y el balón.'
+      },
+      {
+        keyword: 'Pase de primera',
+        description: 'Busca devolver rápidamente el balón a compañeros en mejor posición.'
+      },
+      {
+        keyword: 'Comunicación vocal',
+        description: 'Avisa a tus compañeros dónde estás y cuándo pueden pasarte.'
+      }
+    ],
+    path: [
+      { x: 30, y: 70 },  // Medio pasa al pívot
+      { x: 65, y: 40 },  // Pívot recibe
+      { x: 45, y: 25 },  // Devuelve a compañero
+      { x: 85, y: 35 }   // Finalización
+    ],
+    players: [
+      [
+        { x: 30, y: 70, team: 'A', number: '8' },
+        { x: 65, y: 40, team: 'A', number: '9' },
+        { x: 50, y: 30, team: 'A', number: '11' },
+        { x: 70, y: 45, team: 'B', number: 'D' }
+      ],
+      [
+        { x: 35, y: 65, team: 'A', number: '8' },
+        { x: 65, y: 40, team: 'A', number: '9' },
+        { x: 45, y: 25, team: 'A', number: '11' },
+        { x: 70, y: 45, team: 'B', number: 'D' }
+      ],
+      [
+        { x: 40, y: 60, team: 'A', number: '8' },
+        { x: 60, y: 35, team: 'A', number: '9' },
+        { x: 45, y: 25, team: 'A', number: '11' },
+        { x: 65, y: 40, team: 'B', number: 'D' }
+      ],
+      [
+        { x: 45, y: 55, team: 'A', number: '8' },
+        { x: 70, y: 30, team: 'A', number: '9' },
+        { x: 80, y: 30, team: 'A', number: '11' },
+        { x: 60, y: 35, team: 'B', number: 'D' }
+      ]
+    ]
+  },
+  {
+    id: 'rotaciones',
+    name: 'Rotaciones posicionales',
+    duration: 20,
+    description: 'Intercambio de posiciones entre jugadores para generar superioridad numérica.',
+    cues: [
+      {
+        keyword: 'Timing perfecto',
+        description: 'Las rotaciones deben ser sincronizadas para evitar dejar espacios.'
+      },
+      {
+        keyword: 'Ocupar espacios libres',
+        description: 'Cuando un compañero sale de su zona, ocupa inmediatamente ese espacio.'
+      },
+      {
+        keyword: 'Mantener amplitud',
+        description: 'Las rotaciones no deben reducir el ancho del equipo en ataque.'
+      }
+    ],
+    path: [
+      { x: 40, y: 60 },  // Inicio con medio
+      { x: 60, y: 40 },  // Pase a lateral
+      { x: 80, y: 25 },  // Lateral avanza
+      { x: 70, y: 15 }   // Centro al área
+    ],
+    players: [
+      [
+        { x: 40, y: 60, team: 'A', number: '6' },
+        { x: 60, y: 45, team: 'A', number: '2' },
+        { x: 75, y: 30, team: 'A', number: '7' },
+        { x: 80, y: 50, team: 'A', number: '9' }
+      ],
+      [
+        { x: 50, y: 55, team: 'A', number: '6' },
+        { x: 60, y: 40, team: 'A', number: '2' },
+        { x: 70, y: 25, team: 'A', number: '7' },
+        { x: 75, y: 45, team: 'A', number: '9' }
+      ],
+      [
+        { x: 55, y: 50, team: 'A', number: '6' },
+        { x: 70, y: 35, team: 'A', number: '2' },
+        { x: 80, y: 25, team: 'A', number: '7' },
+        { x: 70, y: 40, team: 'A', number: '9' }
+      ],
+      [
+        { x: 60, y: 45, team: 'A', number: '6' },
+        { x: 75, y: 30, team: 'A', number: '2' },
+        { x: 85, y: 20, team: 'A', number: '7' },
+        { x: 70, y: 15, team: 'A', number: '9' }
+      ]
+    ]
   }
 ];
 
