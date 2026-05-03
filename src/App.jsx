@@ -2179,7 +2179,7 @@ export default function App() {
  * tamaño similar. Si hay un número impar de jugadores el primer
  * equipo tendrá un jugador extra.
  */
-function TeamRandomizer({ whiteboardMode = false }) {
+function TeamRandomizer({ whiteboardMode = true }) {
   const [input, setInput] = useState('');
   const [teams, setTeams] = useState(null);
 
